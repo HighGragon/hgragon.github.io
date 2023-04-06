@@ -214,7 +214,7 @@
             
 
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-外挂手段之静态篡改资源" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -222,7 +222,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/04/06/hello-world/" target="_blank">Hello World</a>
+	  <a class="article-title" href="/2023/04/06/%E5%A4%96%E6%8C%82%E6%89%8B%E6%AE%B5%E4%B9%8B%E9%9D%99%E6%80%81%E7%AF%A1%E6%94%B9%E8%B5%84%E6%BA%90/" target="_blank">外挂手段之静态篡改资源</a>
   
     </h1>
   
@@ -230,8 +230,8 @@
 
   
   
-<a href="/2023/04/06/hello-world/" class="archive-article-date">
-        <time datetime="2023-04-06T06:50:54.200Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-06</time>
+<a href="/2023/04/06/%E5%A4%96%E6%8C%82%E6%89%8B%E6%AE%B5%E4%B9%8B%E9%9D%99%E6%80%81%E7%AF%A1%E6%94%B9%E8%B5%84%E6%BA%90/" class="archive-article-date">
+        <time datetime="2023-04-06T11:18:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-06</time>
 </a>
 
   
@@ -243,19 +243,21 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+    <h1 id="1-篡改AndroidManifest"><a href="#1-篡改AndroidManifest" class="headerlink" title="1.篡改AndroidManifest"></a>1.篡改AndroidManifest</h1><p>AndroidManifest含有信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">包名:package = &quot;***&quot;</span><br><span class="line">权限:&lt;uses-permission&gt;</span><br><span class="line">程序入口点:&lt;application (应用图标)android:icon=&quot;**&quot;,(应用名)android:label=&quot;**&quot; (入口界面) android:name=&quot;**&quot;&gt;</span><br><span class="line">提供者签名:&lt;application&gt;&lt;provider&gt;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p><strong>1.修改应用图标和名称</strong></p>
+<p>(1)直接修改icon&#x3D;””和label&#x3D;””的资源名称</p>
+<p>(2)根据icon&#x3D;””和label&#x3D;””的资源名称在<strong>META-INF</strong>中搜索对应配置文件的对应资源，并修改</p>
+<p><strong>2.修改包名实现分身</strong></p>
+<p>修改package &#x3D; ““中的值，以及<provider android:authorities>中值(后面增加数字或字母)</p>
+<p><strong>3.修改资源去广告</strong></p>
+<p>(1) 断网。去掉修改<uses-permission>中的网络相关权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">留下android.permission.INTERNET</span><br><span class="line">删除WIFI,NETWORK</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>(2)修改开APP前出现的广告。修改入口点的Activity  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">① 使用入口界面的Activity的特征(找广告Activity)</span><br><span class="line">&lt;activity&gt;</span><br><span class="line">	&lt;intent-fileter&gt;</span><br><span class="line">		&lt;action android.name = &quot;android.intent.action.MAIN&quot;&gt;</span><br><span class="line">		&lt;category android.name = &quot;android.intent.category.LAUNCHER&quot;&gt;</span><br><span class="line">② 使用adb shell dumpsys activity top命令 找到真正入口界面的Activity</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 
     
 
@@ -271,7 +273,99 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/04/06/hello-world/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/04/06/%E5%A4%96%E6%8C%82%E6%89%8B%E6%AE%B5%E4%B9%8B%E9%9D%99%E6%80%81%E7%AF%A1%E6%94%B9%E8%B5%84%E6%BA%90/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-APK文件从创建到安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/04/06/APK%E6%96%87%E4%BB%B6%E4%BB%8E%E5%88%9B%E5%BB%BA%E5%88%B0%E5%AE%89%E8%A3%85/" target="_blank">APK文件从创建到运行</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/04/06/APK%E6%96%87%E4%BB%B6%E4%BB%8E%E5%88%9B%E5%BB%BA%E5%88%B0%E5%AE%89%E8%A3%85/" class="archive-article-date">
+        <time datetime="2023-04-06T10:22:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-06</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p><strong>1.APK文件结构</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- assets:静态资源文件</span><br><span class="line">- lib:当前程序使用的so文件(即动态链接库)</span><br><span class="line">- META-INF:证书签名文件(程序摘要,保证程序的完整性)</span><br><span class="line">--- MANIFEST.MF:哈希值</span><br><span class="line">--- ROVIOKEY.RSA:签名秘钥</span><br><span class="line">--- ROVIOKEY.SF:哈希值</span><br><span class="line">- res:程序资源文件(每个资源对应唯一ID,用于和代码交互)</span><br><span class="line">- AndroidManifest.xml:程序的全局配置文件</span><br><span class="line">- classes(n).dex:汇编代码,可通过反编译工具dex2jar转换成jar包,再通过jd-gui查看其代码</span><br><span class="line">- resources.arsc:资源索引表,用来描述具有ID值的资源的配置信息</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.APK的打包流程</strong></p>
+<p><img src="/../images/apkdabao.png"></p>
+<p>(1) <strong>res</strong>资源 —&gt; <strong>R.java</strong>(资源ID）+<strong>Compiled resources</strong></p>
+<p>(2) <strong>R.java</strong> + <strong>app源码</strong> + <strong>java接口</strong>(跨进程通讯) 通过编译器 -&gt; <strong>.class文件</strong></p>
+<p>(3) <strong>.class文件</strong> + <strong>第三方库</strong> 通过动态链接 -&gt; <strong>dex文件</strong></p>
+<p>(4) <strong>compiled resources</strong> + <strong>静态资源</strong> + <strong>dex 文件</strong> 通过apkbuilder -&gt; <strong>.apk</strong></p>
+<p>(5) 对apk通过签名校验 -&gt; 签名后的<strong>signed.apk</strong></p>
+<p>(6) <strong>压缩对齐</strong>后 -&gt; 可执行可安装的apk</p>
+<p><strong>3.APK的安装流程</strong></p>
+<p>(1) 把APK文件复制到**&#x2F;data&#x2F;app<strong>中,并以包名命名,解压扫描安装包,并在</strong>&#x2F;data&#x2F;data**存放相关数据</p>
+<p>(2) 对dex进行优化操作，保存dex到**&#x2F;data&#x2F;dalvik-cache&#x2F;profiles&#x2F;**</p>
+<p>(3) 解析AndroidManifest.xml文件，得到四大组件</p>
+<p><strong>4.APK的运行流程</strong></p>
+<p>依靠虚拟机</p>
+<p><img src="/../images/jvm.jpg"></p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/04/06/APK%E6%96%87%E4%BB%B6%E4%BB%8E%E5%88%9B%E5%BB%BA%E5%88%B0%E5%AE%89%E8%A3%85/">展开全文 >></a>
     </p>
     
 
