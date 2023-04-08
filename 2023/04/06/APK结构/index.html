@@ -6,17 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2023 | Hexo</title>
+  <title>APK文件从创建到运行 | Hexo</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/2023/index.html">
+  <meta name="description" content="1.APK文件结构 12345678910- assets:静态资源文件- lib:当前程序使用的so文件(即动态链接库)- META-INF:证书签名文件(程序摘要,保证程序的完整性)--- MANIFEST.MF:哈希值--- ROVIOKEY.RSA:签名秘钥--- ROVIOKEY.SF:哈希值- res:程序资源文件(每个资源对应唯一ID,用于和代码交互)- AndroidManifes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="APK文件从创建到运行">
+<meta property="og:url" content="http://example.com/2023/04/06/APK%E7%BB%93%E6%9E%84/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1.APK文件结构 12345678910- assets:静态资源文件- lib:当前程序使用的so文件(即动态链接库)- META-INF:证书签名文件(程序摘要,保证程序的完整性)--- MANIFEST.MF:哈希值--- ROVIOKEY.RSA:签名秘钥--- ROVIOKEY.SF:哈希值- res:程序资源文件(每个资源对应唯一ID,用于和代码交互)- AndroidManifes">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/apkdabao.png">
+<meta property="og:image" content="http://example.com/images/jvm.png">
+<meta property="article:published_time" content="2023-04-06T10:22:13.000Z">
+<meta property="article:modified_time" content="2023-04-07T12:39:42.000Z">
 <meta property="article:author" content="HGragon">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/apkdabao.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -207,206 +214,247 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-APK结构" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/04/08/%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/" class="archive-article-date">
-        <time datetime="2023-04-08T07:50:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-08</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/04/08/%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/" target="_blank">动态调试</a>
   
+    <h1 class="article-title" itemprop="name">
+      APK文件从创建到运行
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/04/08/NDK%E7%9B%B8%E5%85%B3/" class="archive-article-date">
-        <time datetime="2023-04-08T02:30:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-08</time>
-</a>
-
-        </div>
-    	 
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/04/08/NDK%E7%9B%B8%E5%85%B3/" target="_blank">NDK相关</a>
-  
-    </h1>
-  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
 
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/04/07/Android%E5%BC%80%E5%8F%91/" class="archive-article-date">
-        <time datetime="2023-04-07T14:17:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-07</time>
-</a>
-
-        </div>
-    	 
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/04/06/%E5%A4%96%E6%8C%82%E6%89%8B%E6%AE%B5%E4%B9%8B%E9%9D%99%E6%80%81%E7%AF%A1%E6%94%B9%E8%B5%84%E6%BA%90/" class="archive-article-date">
-        <time datetime="2023-04-06T11:18:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-06</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/04/06/%E5%A4%96%E6%8C%82%E6%89%8B%E6%AE%B5%E4%B9%8B%E9%9D%99%E6%80%81%E7%AF%A1%E6%94%B9%E8%B5%84%E6%BA%90/" target="_blank">外挂手段之静态篡改资源</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/04/06/APK%E6%96%87%E4%BB%B6%E4%BB%8E%E5%88%9B%E5%BB%BA%E5%88%B0%E5%AE%89%E8%A3%85/" class="archive-article-date">
-        <time datetime="2023-04-06T10:22:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-06</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/04/06/APK%E6%96%87%E4%BB%B6%E4%BB%8E%E5%88%9B%E5%BB%BA%E5%88%B0%E5%AE%89%E8%A3%85/" target="_blank">APK文件从创建到运行</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
 <a href="/2023/04/06/APK%E7%BB%93%E6%9E%84/" class="archive-article-date">
         <time datetime="2023-04-06T10:22:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-06</time>
 </a>
 
-        </div>
-    	 
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/04/06/APK%E7%BB%93%E6%9E%84/" target="_blank">APK文件从创建到运行</a>
   
-    </h1>
-  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">381字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">1分</span>
+    </span>
+  </span>
+</div>
 
 
-        <div class="article-info info-on-right">
-          
-          
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p><strong>1.APK文件结构</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- assets:静态资源文件</span><br><span class="line">- lib:当前程序使用的so文件(即动态链接库)</span><br><span class="line">- META-INF:证书签名文件(程序摘要,保证程序的完整性)</span><br><span class="line">--- MANIFEST.MF:哈希值</span><br><span class="line">--- ROVIOKEY.RSA:签名秘钥</span><br><span class="line">--- ROVIOKEY.SF:哈希值</span><br><span class="line">- res:程序资源文件(每个资源对应唯一ID,用于和代码交互)</span><br><span class="line">- AndroidManifest.xml:程序的全局配置文件</span><br><span class="line">- classes(n).dex:汇编代码,可通过反编译工具dex2jar转换成jar包,再通过jd-gui查看其代码</span><br><span class="line">- resources.arsc:资源索引表,用来描述具有ID值的资源的配置信息</span><br></pre></td></tr></table></figure>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+<p><strong>2.APK的打包流程</strong></p>
+<p><img src="/../images/apkdabao.png"></p>
+<p>(1) <strong>res</strong>资源 —&gt; <strong>R.java</strong>(资源ID）+<strong>Compiled resources</strong></p>
+<p>(2) <strong>R.java</strong> + <strong>app源码</strong> + <strong>java接口</strong>(跨进程通讯) 通过编译器 -&gt; <strong>.class文件</strong></p>
+<p>(3) <strong>.class文件</strong> + <strong>第三方库</strong> 通过动态链接 -&gt; <strong>dex文件</strong></p>
+<p>(4) <strong>compiled resources</strong> + <strong>静态资源</strong> + <strong>dex 文件</strong> 通过apkbuilder -&gt; <strong>.apk</strong></p>
+<p>(5) 对apk通过签名校验 -&gt; 签名后的<strong>signed.apk</strong></p>
+<p>(6) <strong>压缩对齐</strong>后 -&gt; 可执行可安装的apk</p>
+<p><strong>3.APK的安装流程</strong></p>
+<p>(1) 把APK文件复制到**&#x2F;data&#x2F;app<strong>中,并以包名命名,解压扫描安装包,并在</strong>&#x2F;data&#x2F;data**存放相关数据</p>
+<p>(2) 对dex进行优化操作，保存dex到**&#x2F;data&#x2F;dalvik-cache&#x2F;profiles&#x2F;**</p>
+<p>(3) 解析AndroidManifest.xml文件，得到四大组件</p>
+<p><strong>4.APK的运行流程</strong></p>
+<p>依靠虚拟机</p>
+<p>Android 5.0以下Dalvik虚拟机 .dex&#x3D;&gt;dexopt&#x3D;&gt;.odex</p>
+<p>Android 5.0以上ART虚拟机     .dex&#x3D;&gt;dex2oat&#x3D;&gt;.oat</p>
+<p><img src="/../images/jvm.png"></p>
 
     
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/alipay.png">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/weixin.png">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          HGragon
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="http://example.com/2023/04/06/APK结构/" title="APK文件从创建到运行" target="_blank">http://example.com/2023/04/06/APK结构/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2023/04/06/APK%E7%BB%93%E6%9E%84/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+
+<nav id="article-nav">
+  
+    <a href="/2023/04/06/APK%E6%96%87%E4%BB%B6%E4%BB%8E%E5%88%9B%E5%BB%BA%E5%88%B0%E5%AE%89%E8%A3%85/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          APK文件从创建到运行
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
           </div>
@@ -447,8 +495,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,

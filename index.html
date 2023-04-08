@@ -214,6 +214,338 @@
             
 
   
+    <article id="post-动态调试" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/04/08/%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/" target="_blank">动态调试</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/04/08/%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/" class="archive-article-date">
+        <time datetime="2023-04-08T07:50:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-08</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="1-So库动态调试"><a href="#1-So库动态调试" class="headerlink" title="1.So库动态调试"></a>1.So库动态调试</h1><h2 id="debugger调试"><a href="#debugger调试" class="headerlink" title="debugger调试"></a>debugger调试</h2><p>1<del>创建模拟器（有真机可以忽略这个）<br>2</del>在IDA里面找到android_server(dbgsrv目录)<br>3~把android_server文件放到手机&#x2F;data&#x2F;local&#x2F;tmp</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb push 文件名 /data/local/tmp/as</span><br></pre></td></tr></table></figure>
+
+<p>4<del>打开一个cmd窗口：运行android_server<br>    1)adb shell 连接手机<br>    2）给一个最高权限：su<br>    3）来到&#x2F;data&#x2F;local&#x2F;tmp:cd &#x2F;data&#x2F;local&#x2F;tmp<br>    4)给androi_server一个最高的权限：chomd 777 android_server<br>    5)查看android_server是否拥有权限：ls -l<br>    6)运行andorid_server: .&#x2F;android_server（端口号默认是：23946）<br>    补充：运行andorid_server并且修改端口号：.&#x2F;android_server -p端口号<br>5</del>端口转发：<br>    adb forward tcp:23946 tcp:23946（之前转发的端口号是什么，这里就是什么）<br>6<del>打开DDMS：观察程序的端口号<br>7</del>挂起程序：<br>    adb shell am start -D -n 包名&#x2F;类名<br>    例子：adb shell am start -D -n com.example.javandk1&#x2F;.MainActivity<br>    补充：此时观察DDMS，被调试的程序前面有一个红色的虫子；<br>8<del>IDA里面勾选三项<br>    1）打开ida,选择debugger -第二项-Remote ARMlinux（第四项）<br>    2）添加hostname和portt：<br>        hostname：主机号（默认127.0.0.1）<br>        port：端口号（之前android_server运行时的端口号或者端口转发的端口号）<br>    3）出来进程列表：选择要调试的程序（可以ctrl+f，搜索包名）<br>    4）进来后，勾选三项：<br>    Suspend on process entry point程序入口点 断下<br>    Suspend on thread start&#x2F;exit线程的退出或启动 断下<br>    Suspend on library load&#x2F;unload库的加载和卸载 断下<br>补充：可以直接在这里F9（左上角有一个三角形）运行程序，然后放手；<br>         也可以，直接执行第九步，然后IDA运行程序<br>9</del>挂载、释放（放手）<br>    jdb -connect com.sun.jdi.SocketAttach:hostname&#x3D;127.0.0.1,port&#x3D;端口号<br>    补充：此时观察DDMS，被调试的程序前面有一个绿色的虫子；</p>
+<h2 id="普通调试"><a href="#普通调试" class="headerlink" title="普通调试"></a>普通调试</h2><p>adb devices</p>
+<p>安装程序<br>adb install d:\GGActivity.apk</p>
+<p>adb push d:\as &#x2F;data&#x2F;local&#x2F;tmp&#x2F;as<br>adb shell<br>su<br>chmod 777 &#x2F;data&#x2F;local&#x2F;tmp&#x2F;as<br>&#x2F;data&#x2F;local&#x2F;tmp&#x2F;as (-p 端口号)</p>
+<p>再开一个cmd窗口<br>adb forward tcp:27042 tcp:27042<br>adb forward tcp:23946 tcp:23946<br>adb forward tcp:31928 tcp:31928<br>fs要转发的端口号：27042</p>
+<p>挂起程序</p>
+<p>adb shell am start -D -n My.XuanAo.LiuYao&#x2F;.main<br>adb shell am start -D -n com.ygkj.chelaile.standard&#x2F;.module.func.SplashActivity<br>jdb -connect com.sun.jdi.SocketAttach:hostname&#x3D;127.0.0.1,port&#x3D;8621<br>Linker:0x400F0000<br>偏移：272C<br>地址；4010 072C?</p>
+<p>libdvm:41540000<br>偏移：50004</p>
+<p>一般这两个的偏移是不会变的；只看两个so的基地址就好了；</p>
+<p>IDA操作流程：<br>远程附加<br>进程列表<br>选择模块<br>双开定位（或直接定位）：基址+偏移 或直接找<br>下断<br>F9运行<br>打开APK（教程中所谓的激活应用级so）<br>断下来了<br>F7,F8调式<br>F9再运行<br>得到效果</p>
+<p>dvmdexfileparse</p>
+<p>idc脚本：<br>static main(void)<br>{<br>auto fp, dexAddress, end, size;<br>dexAddress &#x3D; 0xA644C008;<br>size &#x3D; 0x0086CAB0;<br>end &#x3D; dexAddress + size;<br>fp &#x3D; fopen(“D:\classes.dex”, “wb”);<br>for ( ; dexAddress &lt; end; dexAddress++ )<br>fputc(Byte(dexAddress), fp);<br>}</p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/04/08/%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-NDK相关" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/04/08/NDK%E7%9B%B8%E5%85%B3/" target="_blank">NDK相关</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/04/08/NDK%E7%9B%B8%E5%85%B3/" class="archive-article-date">
+        <time datetime="2023-04-08T02:30:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-08</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="1-JNI接口"><a href="#1-JNI接口" class="headerlink" title="1.JNI接口"></a>1.JNI接口</h1><p>java层和native层的<strong>桥梁</strong></p>
+<p>重要函数（C版本）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//调用对象方法</span><br><span class="line">jclass (*FindClass)(JNIEnv*,const char* class名(&quot;com/example/xxx/MainActivity&quot;))</span><br><span class="line">jmethodID GetMethodID(JNIEnv*,jclass,const char* java方法名,const char* java方法签名即返回值+参数)</span><br><span class="line">jobject  (*CallObjectMethod)(JNIEnv*,jobject,jmethodID,...)</span><br><span class="line"></span><br><span class="line">//获取对象字段值</span><br><span class="line">jclass (*FindClass)(JNIEnv*,const char* class名(&quot;com/example/xxx/MainActivity&quot;))</span><br><span class="line">jfieldID (*GetFieldID)(JNIEnv*,jclass,const char* 实例字段的名称,const char* 实例字段签名(L&quot;java/lang/String&quot;))</span><br><span class="line">jobject (*GetObjectField)(JNIEnv*,jobject,jfieldID) </span><br></pre></td></tr></table></figure>
+
+<p>JNIEnv*:默认参数，含有大量接口</p>
+<h1 id="2-静态注册"><a href="#2-静态注册" class="headerlink" title="2.静态注册"></a>2.静态注册</h1><p>java层操作和c层操作以及整体编译<br>            1-定义被native修饰的方法<br>            2-根据java代码生成.h头文件（javah -jni 类的包名路径）<br>            3-编写C&#x2F;C++代码，导入.h头文件，实现我们.h头文件中方法<br>            4-编写（配置）两个mk文件：application.mk&#x2F;android.mk<br>            5.通过ndk-build生成so文件；<br>            6.java代码中加载so文件（system.loadlibrary）<br>            7.补充：获取so库的名称<br>                    1-libs文件下去头去尾（头：lib；尾：.so）;<br>                     2.在android.mk直接复制模块名称；</p>
+<h1 id="3-动态注册"><a href="#3-动态注册" class="headerlink" title="3.动态注册"></a>3.动态注册</h1><p>1-java中定义native的方法<br>2-创建C++代码代码，导入头文件；<br>2.1-编写（配置）两个mk文件：application.mk&#x2F;android.mk<br>3-JNInativeMethod:绑定java方法和C&#x2F;C++的方法<br>4-registerNatives（4个参数）：注册java层相应的类以及方法<br>5-使用jni.h中JNI_onload进行判断：注册是否成功（JIN_onload：系统调用，相当于java中的psvm：public static void main）<br>6-ndk-build生成so，<br>7-java代码中加载so文件（system.loadlibrary）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">typedef struct</span><br><span class="line">&#123;</span><br><span class="line">	const char* name; //java方法名</span><br><span class="line">	const char* signature  //第二个参数方法签名</span><br><span class="line">	void* fnPtr;   //c函数指针</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//绑定c层和java层</span><br><span class="line">JNINativeMethod nativeMethod[] = &#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">jint registerNative(JNIEnv* env)&#123;</span><br><span class="line">	jclass class = (*env)-&gt;FindClass(env,&quot;com/example/xxx/MainActivity&quot;)</span><br><span class="line">	//arg4为参数数量</span><br><span class="line">	if((*env)-&gt;RegisterNatives(env,jclass,nativeMethod,4)!=JNI_OK)&#123;</span><br><span class="line">		return JNI_ERR;</span><br><span class="line">	&#125;</span><br><span class="line">	return JNI_VERSION_1_4;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//使用JNI_OnLoad进行动态注册</span><br><span class="line">JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm,void* reserved)&#123;</span><br><span class="line">	JNIEnv* env;</span><br><span class="line">	if((*vm)-&gt;GetEnv(vm,(void**)&amp;env,JNI_VERSION_1_4)!=JNI_OK)&#123;</span><br><span class="line">		return JNI_ERR;</span><br><span class="line">	&#125;</span><br><span class="line">	if(registerNative!=JNI_OK)&#123;</span><br><span class="line">		return JNI_ERR;</span><br><span class="line">	&#125;</span><br><span class="line">	return JNI_OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/04/08/NDK%E7%9B%B8%E5%85%B3/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Android开发" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="1-四大组件"><a href="#1-四大组件" class="headerlink" title="1.四大组件"></a>1.四大组件</h1><h2 id="1-1-Activity"><a href="#1-1-Activity" class="headerlink" title="1.1 Activity"></a>1.1 Activity</h2><p>1.创建条件：创建类继承Activity</p>
+<p><strong>2.创建执行方法：</strong></p>
+<ul>
+<li>onCreate() :在活动第一次被创建的时候调用</li>
+<li>onStart():在活动由不可见变为可见的时候调用</li>
+<li>onResume() 在活动准备好和用户进行交互的时候调用，此时活动一定位于返回栈顶，并处于运行状态</li>
+</ul>
+<p><strong>3.销毁执行的方法：</strong></p>
+<ul>
+<li>onPause()：在系统准备启动或恢复另一个活动的时候调用，通常会在这个方法中将一些<strong>消耗CPU的资源释放掉，以及保存一些关键数据</strong></li>
+<li>onStop()：在<strong>活动完全不可见</strong>的时候调用</li>
+<li>onDestroy()：活动销毁之前调用</li>
+<li>onRestart()：活动由停止状态变为运行状态之前调用</li>
+</ul>
+<p><img src="/../images/activity.jpg"></p>
+<p><strong>4.Activity管理</strong></p>
+<p>Android采用Task来管理多个Activity。当启动一个APP时，Android就会为之创建一个Task。然后每启动一个Activity，就把当前的Activity压到栈顶</p>
+<p><strong>5.Activity的四种启动模式</strong></p>
+<p>一、Activity（活动）的管理模式<br>Android采用Task来管理多个Activity。当启动一个APP时,Android就会为之创建一个Task，然后每启动一个activity，则把当前的activity压到栈顶。比如以此启动页面A-&gt;B-&gt;C，栈里面的结构如下所示<br>C——栈顶<br>B<br>A——栈底<br>按返回键的时候，从栈顶弹出页面依次为C-&gt;B-&gt;A</p>
+<p><strong>6.Activity（活动）的四种启动模式</strong><br>1.standard模式<br>它是活动默认的启动模式，在不进行显示制定的情况下，所有活动都会自动使用这种启动模式。每次通过此模式来启动activity时，Android总会为目标activity启动一个新的实例。<br>举个例子：activity A为standard模式，activity B为standard模式，activity C为standard模式，从A-&gt;B-&gt;C依次启动activity：<br>C为栈顶<br>B<br>A为栈低<br>按返回键的时候，从栈顶弹出页面依次为C-&gt;B-&gt;A</p>
+<p>2.singleTop模式<br>I.比如Activity B启动模式为singleTop，Activity A为standard，此时从A页面跳转B页面，A-&gt;B时，会先在栈中查看栈顶是否存在B，存在的话，则复用栈顶B，调用onNewIntent方法，而不是重新new一个新的B。如果栈中不存在B，则会创建B。<br>II.再继续从B页面跳转B页面的时候，及A-&gt;B-&gt;B时，因为栈顶已经存在B了，则直接复用栈顶的B，调用onNewIntent方法，此时栈如下所示：<br>B——栈顶<br>A——栈底</p>
+<p>3.singleTask模式<br>使用这种加载模式的activity在同一个Task内只有一个实例，当系统采用此singleTask模式启动activity时，可以分为三种情况：<br>a. 如果将要启动的activity不存在，系统将会创建目标activity实例，并将它加入到Task栈顶。<br>b.如果将要启动的activity已经位于Task栈顶，此时与singleTop模式的行为相同。<br>c. 如果将要启动的activity已经存在，但没有位于Task栈顶，系统将会把位于该activity上面的所有activity移出Task栈，从而使得目标activity转入栈顶。</p>
+<p>4.singleInstance模式<br>假设我们的程序中有一个活动是允许其他程序调用的，如果我们想实现其他程序和我们的程序可以共享这个活动的实例，应该如何实现呢？<br>使用前面三种启动模式肯定是做不到的，因为每个应用程序都会有自己的返回栈，同一个活动在不同的返回栈中入栈时必然是创建了新的实例。而使用singleInstance 模式就可以解决这个问题，在这种模式下会有一个单独的返回栈来管理这个活动，不管是哪个应用程序来访问这个活动，都共用的同一个返回栈，也就解决了共享活动实例的问题。<br>此加载模式下，无论从哪个Task中启动目标activity，只会创建一个目标activity实例，并会使用一个全新的Task栈来装载该activity实例。当系统采用singleInstance模式启动activity时，可以分为两种情况：<br>a.如果将要启动的activity不存在，系统会先创建一个全新的Task、再创建目标activity的实例，并将它加入新的Task的栈顶。<br>b. 如果将要启动的activity已经存在，无论它位于哪个应用程序中，无论它位于哪个Task中，系统将会把该activity所在的Task转到前台，从而使用该activity显示出来。</p>
+<p><strong>7.Activity的跳转方式</strong></p>
+<p>startActivity(intent)</p>
+<p>startActivityForResult(intent,code)</p>
+<p>intent为不同组件之间通信的“媒介”专门提供组件互相调用的相关信息。一般可被用于启动活动、启动服务以及发送广播等场景。大致可以把intent分为两种：显示intent和隐式intent。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/white_mvlog/article/details/119777982">(216条消息) Android学习笔记——第一章 Activity与intent_activity intent_Lino_white的博客-CSDN博客</a></p>
+<h2 id="1-2-service"><a href="#1-2-service" class="headerlink" title="1.2 service"></a>1.2 service</h2><p>退出应用时，service进程并没有结束，它仍然在后台运行，比如播放音乐在后台播放，比如后台更新游戏等</p>
+<p><strong>1.service的声明周期</strong></p>
+<p>onCreate(),onStart(),onDestroy() </p>
+<p><strong>2.启动service</strong></p>
+<p>startService(intent)，onCreate-&gt;onStart  (<strong>创建了永久存在，除非调用stopService</strong>)</p>
+<p>bindService(intent,conn,Context.BIND_AUTO_CREATE),onCreate-&gt;onBind,也就是调用者和service绑定在一起，两者共存亡</p>
+<p><strong>3.startService和binService的使用场景</strong></p>
+<p>如果你只是想要启动一个后台服务长期进行某项任务，那么使用startService便可以了。如果你还<strong>想要与正在运行的Service取得联系</strong>，那么有两种方法：<strong>一种是使用broadcast，另一种是使用bindService</strong>。前者的缺点是如果交流较为频繁，容易造成性能上的问题，而后者则没有这些问题。因此，这种情况就需要<strong>startService和bindService一起使用了</strong>。另外，如果你的服务只是公开一个远程接口，供连接上的客户端（Android的Service是C&#x2F;S架构）远程调用执行方法，这个时候你可以不让服务一开始就运行，而只是bindService，这样在第一次bindService的时候才会创建服务的实例运行它，这会节约很多系统资源，特别是如果你的服务是远程服务，那么效果会越明显（当然在Servcie创建的时候会花去一定时间，这点需要注意）。通过startservice开启的服务，一旦服务开启, 这个服务和开启他的调用者之间就没有任何的关系了。调用者不可以访问 service里面的方法.，调用者如果被系统回收了或者调用了ondestroy方法, service还会继续存在 。通过bindService开启的服务,服务开启之后,调用者和服务之间 还存在着联系 ,一旦调用者挂掉了.service也会跟着挂掉 。</p>
+<p><strong>4.本地服务与远程服务</strong><br>本地服务依附在主进程上，在一定程度上节约了资源。本地服务因为是在同一进程，因此不需要IPC，也不需要AIDL。相应bindService会方便很多。缺点是主进程被kill后，服务变会终止。</p>
+<p>远程服务是独立的进程，对应进程名格式为所在包名加上你指定的android:process字符串。由于是独立的进程，因此在Activity所在进程被kill的是偶，该服务依然在运行。缺点是该服务是独立的进程，会占用一定资源，并且使用AIDL进行IPC稍微麻烦一点。</p>
+<p>对于startService来说，不管是本地服务还是远程服务，我们需要做的工作都一样简单。</p>
+<p><strong>5.使用AIDL实现进程之间的通信</strong><br>onBind回调方法将返回给客户端一个IBinder接口实例，IBinder允许客户端回调服务的方法，比如得到Service运行的状态或其他操作。我们需要IBinder对象返回具体的Service对象才能操作，所以说具体的Service对象必须首先实现Binder对象</p>
+<h2 id="1-3-BroadCast"><a href="#1-3-BroadCast" class="headerlink" title="1.3 BroadCast"></a>1.3 BroadCast</h2><p><strong>1.广播接收者（Broadcast Receiver）的理解</strong><br>你的应用可以使用它对外部事件进行过滤只对感兴趣的外部事件(如当电话呼入时，或者数据网络可用时)进行接收并做出响应。广播接收器没有用户界面。然而，它们可以启动一个activity或service 来响应它们收到的信息，或者用NotificationManager 来通知用户。通知可以用很多种方式来吸引用户的注意力──闪动背灯、震动、播放声音等。一般来说是在状态栏上放一个持久的图标，用户可以打开它并获取消息。</p>
+<p><strong>2.广播类型</strong><br>1.普通广播，通过**Context.sendBroadcast(Intent myIntent)**发送的。</p>
+<p>2.有序广播，通过Context.sendOrderedBroadcast(intent, receiverPermission)发送的，该方法第2个参数决定该广播的级别，级别数值是在 -1000 到 1000 之间 , 值越大 , 发送的优先级越高；广播接收者接收广播时的级别级别（可通过intentfilter中的priority进行设置设为2147483647时优先级最高），同级别接收的先后是随机的， 再到级别低的收到广播，高级别的或同级别先接收到广播的可以通过abortBroadcast()方法截断广播使其他的接收者无法收到该广播，还有其他构造函数。</p>
+<p>3.异步广播，通过Context.sendStickyBroadcast(Intent myIntent)发送的，还有sendStickyOrderedBroadcast(intent, resultReceiver, scheduler,  initialCode, initialData, initialExtras)方法，该方法具有有序广播的特性也有异步广播的特性；发送异步广播要： <uses-permission android:name="android.permission.BROADCAST_STICKY" />权限，接收并处理完Intent后，广播依然存在，直到你调用removeStickyBroadcast(intent)主动把它去掉<br>注意：发送广播时的intent参数与Contex.startActivity()启动起来的Intent不同,前者可以被多个订阅它的广播接收器调用,后者只能被一个(Activity或service)调用。</p>
+<p><strong>3.监听广播Intent步骤</strong><br>写一个继承BroadCastReceiver的类,重写onReceive()方法,广播接收器仅在它执行这个方法时处于活跃状态。当onReceive()返回后，它即为失活状态,注意:为了保证用户交互过程的流畅,一些费时的操作要放到线程里,如类名SMSBroadcastReceiver注册该广播接收者,注册有两种方法程序动态注册和AndroidManifest文件中进行静态注册（可理解为系统中注册）如下：</p>
+<p>1.静态注册,注册的广播，下面的priority表示接收广播的级别”2147483647”为最高优先级</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;receiver android:name=&quot;.SMSBroadcastReceiver&quot; &gt;</span><br><span class="line">　　&lt;intent-filter android:priority = &quot;2147483647&quot; &gt;</span><br><span class="line">　　　&lt;action android:name=&quot;android.provider.Telephony.SMS_RECEIVED&quot;/&gt;</span><br><span class="line">　　&lt;/intent-filter&gt;</span><br><span class="line">&lt;/receiver &gt;</span><br></pre></td></tr></table></figure>
+
+<p>2.动态注册，一般在Activity可交互时onResume()内注册BroadcastReceiver</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">IntentFilter intentFilter=new IntentFilter(&quot;android.provider.Telephony.SMS_RECEIVED&quot;);</span><br><span class="line">registerReceiver(mBatteryInfoReceiver ,intentFilter);</span><br><span class="line">//取消注册</span><br><span class="line">unregisterReceiver(receiver);</span><br></pre></td></tr></table></figure>
+
+<!-- 检测网络的权限 -->
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+<p><strong>4.注意事项</strong><br>1.生命周期只有十秒左右，如果在 onReceive() 内做超过十秒内的事情，就会报ANR(Application No Response) 程序无响应的错误信息，如果需要完成一项比较耗时的工作 , 应该通过发送 Intent 给 Service, 由Service 来完成 . 这里不能使用子线程来解决 , 因为 BroadcastReceiver 的生命周期很短 , 子线程可能还没有结束BroadcastReceiver 就先结束了 .BroadcastReceiver 一旦结束 , 此时 BroadcastReceiver 的所在进程很容易在系统需要内存时被优先杀死 , 因为它属于空进程 ( 没有任何活动组件的进程 ). 如果它的宿主进程被杀死 , 那么正在工作的子线程也会被杀死 . 所以采用子线程来解决是不可靠的。</p>
+<p>2.动态注册广播接收器还有一个特点，就是当用来注册的Activity关掉后，广播也就失效了。静态注册无需担忧广播接收器是否被关闭,只要设备是开启状态,广播接收器也是打开着的。也就是说哪怕app本身未启动,该app订阅的广播在触发时也会对它起作用系统常见广播Intent,如开机启动、电池电量变化、时间改变等广播。</p>
+<h2 id="1-4-ContentProvider"><a href="#1-4-ContentProvider" class="headerlink" title="1.4 ContentProvider"></a>1.4 ContentProvider</h2><p><strong>1.Content Providers的概念</strong><br>内容提供器（Content Provider）主要用于在不同的应用程序之间实现数据共享的功能，它提供了一套完整的机制，允许一个程序访问另一个程序中的数据，同时还能保证被访数据的安全性。目前，使用内容提供器是 Android 实现跨程序共享数据的标准方式。不同于文件存储和 SharedPreferences 存储中的两种全局可读写操作模式，内容提供器可以选择只对哪一部分数据进行共享，从而保证我们程序中的隐私数据不会有泄漏的风险。</p>
+<p><strong>2.Content Providers的两种方法</strong><br>1.使用现有的内容提供器来读取和操作相应程序中的数据；<br>2.创建自己的内容提供器给我们程序的数据提供外部访问接口。</p>
+<p><strong>3、访问其他程序中的数据</strong><br>当一个应用程序通过内容提供器对其数据提供了外部访问接口，任何其他的应用程序就都可以对这部分数据进行访问。Android 系统中自带的电话簿、短信、媒体库等程序都提供了类似的访问接口。</p>
+<p>1.ContentResolver的使用<br>a.对于每一个应用程序来说，如果想要访问内容提供器中共享的数据，就一定要助ContentResolve 类，可以通过 Context 中的 getContentResolver()方法获取到该类的实例。</p>
+<p>b.ContentResolver 中提供了一系列的方法用于对数据进行 CRUD 操作，其中 insert()方法用于添加数据，update()方法用于更新数据，delete()方法用于删除数据，query()方法用于查询数据。但不同于 SQLiteDatabase，ContentResolver 中的增删改查方法都是不接收表名参数的，而是使用一个 Uri 参数代替，这个参数被称为内容 URI。</p>
+<p>c.什么是Uri？<br>内容 URI 给内容提供器中的数据建立了唯一标识符，它主要由两部分组成，权限（authority）和路径（path） 。权限是用于对不同的应用程序做区分的，一般为了避免冲突，都会采用程序包名的方式来进行命名。路径则是用于对同一应用程序中不同的表做区分的，通常都会添加到权限的后面。<br>第一部分：content:&#x2F;&#x2F;相当于http:&#x2F;&#x2F;<br>第二部分：com.eyy5.app.provider相当于vip.qiyikt.com<br>第三部分：table1相当于forum<br>例如：content:&#x2F;&#x2F;com.eyy5.app.provider&#x2F;table1<br>获取Uri对象：Uri uri &#x3D; Uri.parse(“content:&#x2F;&#x2F;com.eyy5.app.provider&#x2F;table1”)</p>
+<p>d.查询<br>uri：指定查询某个应用程序下的某一张表<br>projection：指定查询的列名<br>selection：指定 where 的约束条件<br>selectionArgs：为 where 中的占位符提供具体的值<br>sortOrder：指定查询结果的排序方式<br>Cursor cursor &#x3D; getContentResolver().query(uri,projection,selection,selectionArgs,sortOrder);<br>if (cursor !&#x3D; null) {<br>while (cursor.moveToNext()) {<br>String column1 &#x3D; cursor.getString(cursor.getColumnIndex(“column1”));<br>int column2 &#x3D; cursor.getInt(cursor.getColumnIndex(“column2”));<br>}<br>cursor.close();<br>}</p>
+<p>e.添加<br>ContentValues values &#x3D; new ContentValues();<br>values.put(“column1”, “text”);<br>values.put(“column2”, 1);<br>getContentResolver().insert(uri, values);</p>
+<p>f.修改<br>ContentValues values &#x3D; new ContentValues();<br>values.put(“column1”, “”);<br>getContentResolver().update(uri, values, “column1 &#x3D; ? and column2 &#x3D; ?”, new String[] {“text”, “1”});</p>
+<p>g.删除<br>getContentResolver().delete(uri, “column2 &#x3D; ?”, new String[] { “1” });</p>
+<p>2.读取系统联系人的步骤<br>a.获取Uri<br>通过ContactsContract.CommonDataKinds.Phone类已经把Uri做好了封装，并且提供了一个CONTENT_URI常量，这个常量就是通过Uri.parse()解析过的Uri。</p>
+<p>b.获取联系人名字的字段<br>ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME</p>
+<p>c.获取联系人电话的字段<br>ContactsContract.CommonDataKinds.Phone.NUMBER</p>
+<p>注意：<br>需要访问联系人的权限：android.permission.READ_CONTACTS </p>
+<h1 id="2-组件之间的信息传递"><a href="#2-组件之间的信息传递" class="headerlink" title="2.组件之间的信息传递"></a>2.组件之间的信息传递</h1><h2 id="2-1-Intent的使用"><a href="#2-1-Intent的使用" class="headerlink" title="2.1 Intent的使用"></a>2.1 Intent的使用</h2><p>Intent是由<strong>Component、Action、Data、Category、Extra及Flag</strong>六部分组成的，分别详细介绍：</p>
+<p><strong>1.组件名称</strong></p>
+<p>实际上就是一个ComponentName对象，用于标识唯一的应用程序组件，即指明了期望的Intent组件，这种对象的名称是由目标组件的类名与目标组件的包名组合而成的。在Intent传递过程中，组件名称是一个可选项，当指定它时，便是显式的Intent消息，我们称为“显示意图”，当不指定它时，Android系统则会根据其他信息及IntentFilter的过滤条件选择相应的组件，我们称之为 “隐式意图”。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建一个ComponentName对象</span></span><br><span class="line"><span class="type">ComponentName</span> <span class="variable">componentName</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ComponentName</span>(</span><br><span class="line">IntentDemoActivity.<span class="built_in">this</span>, SecondActivity.class);</span><br><span class="line"><span class="type">Intent</span> <span class="variable">intent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>();</span><br><span class="line"><span class="comment">//设置Intent的Component属性</span></span><br><span class="line">intent.setComponent(componentName);</span><br><span class="line"><span class="comment">//启动SecondActivity</span></span><br><span class="line">startActivity(intent);</span><br><span class="line"></span><br><span class="line">上面的代码其实完全可以简化为：</span><br><span class="line"><span class="type">Intent</span> <span class="variable">intent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>(IntentDemoActivity.<span class="built_in">this</span>, SecondActivity.class);</span><br><span class="line"><span class="comment">//启动SecondActivity</span></span><br><span class="line">startActivity(intent);</span><br><span class="line"></span><br><span class="line">也可以写为：</span><br><span class="line">Intent intent=<span class="keyword">new</span> <span class="title class_">Intent</span>()</span><br><span class="line">intent.setClass(IntentDemoActivity.<span class="built_in">this</span>, SecondActivity.class)</span><br><span class="line">startActivity(intent)</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.Action</strong></p>
+<p>Action实际上就是一个描述了Intent所触发动作名称的字符串，在Intent类中，已经定义好多字符串常量来表示不同的Action，当然，开发人员也可以自定义Action，其定义规则同样非常简单。动作名必须是独一无二的字符串，所以，一个好的习惯是使用基于Java包的命名方式的命名系统。<br>系统定义的Action常量有很多，下面只列出其中一些较常见的。<br>ACTION_CALL，拨出Data里封装的电话号码。<br>ACTION_EDIT，打开Data里指定数据所对应的编码程序。<br>ACTION_VIEW，打开能够显示Data中封装的数据的应用程序。<br>ACTION_MAIN，声明程序的入口，该Action并不会接收任何数据，同时结束后也不会返回任何数据。<br>ACTION_BOOT_COMPLETED，BroadcastReceiver Action的常量，表明系统启动完毕。<br>ACTION_TIME_CHANGED，BroadcastReceiver Action的常量，表示系统时间通过设置而改变。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明一个Intent对象</span></span><br><span class="line"><span class="type">Intent</span> <span class="variable">intent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>();</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 设置Action属性,这里是跳到拨号界面</span></span><br><span class="line"><span class="comment">* ACTION_DIAL = &quot;android.intent.action.DIAL&quot;;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">intent.setAction(Intent.ACTION_DIAL);</span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.Data</strong></p>
+<p>Data主要是对Intent消息中数据的封装，主要描述Intent的动作所操作到的数据的URI及类型。不同类型的Action会有不同的Data封装，例如打电话的Intent会封装tel:&#x2F;&#x2F;格式的电话URI，而ACTION_VIEW的Intent中Data则会封装http:格式的URI。正确的Data封装对Intent匹配请求同样非常重要。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明一个Intent对象</span></span><br><span class="line"><span class="type">Intent</span> <span class="variable">intent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>();</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 设置Action属性,这里是跳到拨号界面</span></span><br><span class="line"><span class="comment">* ACTION_DIAL = &quot;android.intent.action.DIAL&quot;;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">intent.setAction(Intent.ACTION_DIAL);</span><br><span class="line"><span class="type">Uri</span> <span class="variable">uri</span> <span class="operator">=</span> Uri.parse(<span class="string">&quot;tel:0-123-456-789&quot;</span>);</span><br><span class="line">intent.setData(uri);</span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></figure>
+
+<p><strong>4.Category</strong></p>
+<p>Category是对目标组件类别信息的描述。同样作为一个字符串对象，一个Intent中可以包含多个Category。与Category相关的方法有三个，addCategory添加一个Category，removeCategory删除一个Category，而getCategories得到一个Category。Android系统同样定义了一组静态字符常量来表示Intent的不同类别，下面列出一些常见的Category常量。<br>CATEGORY_GADGET，表示目标Activity是可以嵌入到其他Activity中的。<br>CATEGORY_HOME，表明目标Activity为HOME Activity。<br>CATEGORY_TAB，表明目标Activity是TabActivity的一个标签下的Activity。<br>CATEGORY_LAUNCHER，表明目标Activity是应用程序中最先被执行的Activity。<br>CATEGORY_PREFERNCE，表明目标Activity是一个偏好设置的Activity。<br>一个Intent最多只能包含一个Action属性，但是一个Intent中可以包含多个Category属性。</p>
+<p><strong>5.Extra</strong></p>
+<p>Extra中封装了一些额外的附加信息，这些信息是以键值对的形式存在的。Intent可以通过putExtras()与getExtras()方法来存储和获取Extra。在Android系统的Intent类中，同样对一些常用的Extra键值进行了定义，如下所示。<br>EXTRA_BCC，装有邮件密送地址的字符串数组。<br>EXTRA_EMAIL，装有邮件发送地址的字符串数组。<br>EXTRA_UID，使用ACTION_UID_REMOVED动作时，描述删除用户的id。<br>EXTRA_TEXT，当使用ACTION_SEND动作时，描述要发送文本的信息。</p>
+<p><strong>6.Flag</strong></p>
+<p>一些有关系统如何启动组件的标志位，Android同样对其进行了封装。</p>
+<h2 id="2-2-IntentFilter"><a href="#2-2-IntentFilter" class="headerlink" title="2.2 IntentFilter"></a>2.2 IntentFilter</h2><p>IntentFilter实际上相当于Intent的过滤器，一个应用程序开发完成后，需要告诉Android系统自己能够处理哪些隐形的Intent请求，这就需要声明IntentFilter。IntentFilter的使用方法实际上非常简单，仅声明该应用程序接收什么样的Intent请求即可。</p>
+<p>IntentFilter过滤Intent时，一般是通过<strong>Action、Data及Category</strong>三方面进行监测的。</p>
+<p><strong>1.检查Action</strong></p>
+<p>一个Intent只能设置一种Action，但是一个IntentFilter却可以设置多个Action过滤。当IntentFilter设置了多个Action时，只需一个满足即可完成Action验证。当IntentFilter中没有说明任何一个Action时，那么任何的Action都不会与之匹配。而如果Intent中没有包含任何Action，那么只要IntentFilter中含有Action时，便会匹配成功。<br><strong>2.检查Data数据的监测</strong></p>
+<p>主要包含两部分，即数据的URI及数据类型，而数据URI又被分成三部分进行匹配（scheme、authority、path），只有这些全部匹配时，Data的验证才会成功。<br><strong>3.检查CategoryIntentFilter</strong></p>
+<p>同样可以设置多个Category，当Intent中的Category与IntentFilter中的一个Category完全匹配时，便会通过Category的检查，而其他的Category并不受影响。但是当IntentFilter没有设置Category时，只能与没有设置Category的Intent相匹配。</p>
+<p><strong>使用IntentFilter</strong></p>
+<p>为了注册一个应用程序组件为 Intent 处理者，在组件的 manifest 节点添加一个 intent-filter 标签。在 Intent Filter 节点里使用下面的标签（关联属性），你能指定组件支持的动作、种类和数据：<br><strong>1．动作测试</strong><br><intent-filter>元素中可以包括子元素<action>，比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt; intent-filter &gt;</span><br><span class="line">&lt; action android:name=&quot;com.example.project.SHOW_CURRENT&quot; /&gt;</span><br><span class="line">&lt; action android:name=&quot;com.example.project.SHOW_RECENT&quot; /&gt;</span><br><span class="line">&lt; action android:name=&quot;com.example.project.SHOW_PENDING&quot; /&gt;</span><br><span class="line">&lt;/ intent-filter &gt;</span><br></pre></td></tr></table></figure>
+
+<p>一条<intent-filter>元素至少应该包含一个<action>，否则任何Intent请求都不能和该<intent-filter>匹配。如果Intent请求的Action和<intent-filter>中个某一条<action>匹配，那么该Intent就通过了这条<intent-filter>的动作测试。如果<br>Intent请求或<intent-filter>中没有说明具体的Action类型，那么会出现下面两种情况。<br>a. 如果<intent-filter>中没有包含任何Action类型，那么无论什么Intent请求都无法和这条<intent-filter>匹配；<br>b.反之，如果Intent请求中没有设定Action类型，那么只要<intent-filter>中包含有Action类型，这个Intent请求就将顺利地通过<intent-filter>的行为测试。</p>
+<p><strong>2．类别测试</strong><br><intent-filter>元素可以包含<category>子元素，比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. &lt; intent-filter&gt;</span><br><span class="line">2. &lt; category android:name=&quot;android.Intent.Category.DEFAULT&quot; /&gt;</span><br><span class="line">3. &lt; category android:name=&quot;android.Intent.Category.BROWSABLE&quot; /&gt;</span><br><span class="line">4. &lt;/ intent-filter &gt;</span><br></pre></td></tr></table></figure>
+
+
+<p>只有当Intent请求中所有的Category与组件中某一个IntentFilter的<category>完全匹配时，才会让该 Intent请求通过测试，IntentFilter中多余的<category>声明并不会导致匹配失败。一个没有指定任何类别测试的 IntentFilter仅仅只会匹配没<br>有设置类别的Intent请求。</p>
+<p><strong>3．数据测试</strong><br>数据在<intent-filter>中的描述如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt; intent-filter . . . &gt;</span><br><span class="line">&lt; data android:type=&quot;video/mpeg&quot; android:scheme=&quot;http&quot; . . . /&gt;</span><br><span class="line">&lt; data android:type=&quot;audio/mpeg&quot; android:scheme=&quot;http&quot; . . . /&gt;</span><br><span class="line">&lt;/ intent-filter &gt;</span><br></pre></td></tr></table></figure>
+
+
+<p><data>元素指定了希望接受的Intent请求的数据URI和数据类型，URI被分成三部分来进行匹配：scheme、 authority和path。其中，用setData()设定的Inteat请求的URI数据类型和scheme必须与IntentFilter中所指定的一致。若IntentFilter中还指定了authority或path，它们也需要相匹配才会通过测试。</p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/04/07/Android%E5%BC%80%E5%8F%91/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-外挂手段之静态篡改资源" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -366,6 +698,100 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2023/04/06/APK%E6%96%87%E4%BB%B6%E4%BB%8E%E5%88%9B%E5%BB%BA%E5%88%B0%E5%AE%89%E8%A3%85/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-APK结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/04/06/APK%E7%BB%93%E6%9E%84/" target="_blank">APK文件从创建到运行</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/04/06/APK%E7%BB%93%E6%9E%84/" class="archive-article-date">
+        <time datetime="2023-04-06T10:22:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-06</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p><strong>1.APK文件结构</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- assets:静态资源文件</span><br><span class="line">- lib:当前程序使用的so文件(即动态链接库)</span><br><span class="line">- META-INF:证书签名文件(程序摘要,保证程序的完整性)</span><br><span class="line">--- MANIFEST.MF:哈希值</span><br><span class="line">--- ROVIOKEY.RSA:签名秘钥</span><br><span class="line">--- ROVIOKEY.SF:哈希值</span><br><span class="line">- res:程序资源文件(每个资源对应唯一ID,用于和代码交互)</span><br><span class="line">- AndroidManifest.xml:程序的全局配置文件</span><br><span class="line">- classes(n).dex:汇编代码,可通过反编译工具dex2jar转换成jar包,再通过jd-gui查看其代码</span><br><span class="line">- resources.arsc:资源索引表,用来描述具有ID值的资源的配置信息</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.APK的打包流程</strong></p>
+<p><img src="/../images/apkdabao.png"></p>
+<p>(1) <strong>res</strong>资源 —&gt; <strong>R.java</strong>(资源ID）+<strong>Compiled resources</strong></p>
+<p>(2) <strong>R.java</strong> + <strong>app源码</strong> + <strong>java接口</strong>(跨进程通讯) 通过编译器 -&gt; <strong>.class文件</strong></p>
+<p>(3) <strong>.class文件</strong> + <strong>第三方库</strong> 通过动态链接 -&gt; <strong>dex文件</strong></p>
+<p>(4) <strong>compiled resources</strong> + <strong>静态资源</strong> + <strong>dex 文件</strong> 通过apkbuilder -&gt; <strong>.apk</strong></p>
+<p>(5) 对apk通过签名校验 -&gt; 签名后的<strong>signed.apk</strong></p>
+<p>(6) <strong>压缩对齐</strong>后 -&gt; 可执行可安装的apk</p>
+<p><strong>3.APK的安装流程</strong></p>
+<p>(1) 把APK文件复制到**&#x2F;data&#x2F;app<strong>中,并以包名命名,解压扫描安装包,并在</strong>&#x2F;data&#x2F;data**存放相关数据</p>
+<p>(2) 对dex进行优化操作，保存dex到**&#x2F;data&#x2F;dalvik-cache&#x2F;profiles&#x2F;**</p>
+<p>(3) 解析AndroidManifest.xml文件，得到四大组件</p>
+<p><strong>4.APK的运行流程</strong></p>
+<p>依靠虚拟机</p>
+<p>Android 5.0以下Dalvik虚拟机 .dex&#x3D;&gt;dexopt&#x3D;&gt;.odex</p>
+<p>Android 5.0以上ART虚拟机     .dex&#x3D;&gt;dex2oat&#x3D;&gt;.oat</p>
+<p><img src="/../images/jvm.png"></p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/04/06/APK%E7%BB%93%E6%9E%84/">展开全文 >></a>
     </p>
     
 
