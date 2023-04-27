@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>动态调试 | Hexo</title>
+  <title>安卓动态调试 | Hexo</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="1.So库动态调试debugger调试1创建模拟器（有真机可以忽略这个）2在IDA里面找到android_server(dbgsrv目录)3~把android_server文件放到手机&#x2F;data&#x2F;local&#x2F;tmp 1adb push 文件名 &#x2F;data&#x2F;local&#x2F;tmp&#x2F;as  4打开一个cmd窗口：运行android_server    1)adb shell">
+  <meta name="description" content="1.So库动态调试debugger调试1.创建模拟器（有真机可以忽略这个）2.在IDA里面找到android_server(dbgsrv目录)3.把android_server文件放到手机&#x2F;data&#x2F;local&#x2F;tmp 1adb push 文件名 &#x2F;data&#x2F;local&#x2F;tmp&#x2F;as  4.打开一个cmd窗口：运行android_server    1)adb she">
 <meta property="og:type" content="article">
-<meta property="og:title" content="动态调试">
+<meta property="og:title" content="安卓动态调试">
 <meta property="og:url" content="http://example.com/2023/04/08/%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="1.So库动态调试debugger调试1创建模拟器（有真机可以忽略这个）2在IDA里面找到android_server(dbgsrv目录)3~把android_server文件放到手机&#x2F;data&#x2F;local&#x2F;tmp 1adb push 文件名 &#x2F;data&#x2F;local&#x2F;tmp&#x2F;as  4打开一个cmd窗口：运行android_server    1)adb shell">
+<meta property="og:description" content="1.So库动态调试debugger调试1.创建模拟器（有真机可以忽略这个）2.在IDA里面找到android_server(dbgsrv目录)3.把android_server文件放到手机&#x2F;data&#x2F;local&#x2F;tmp 1adb push 文件名 &#x2F;data&#x2F;local&#x2F;tmp&#x2F;as  4.打开一个cmd窗口：运行android_server    1)adb she">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-04-08T07:50:48.000Z">
-<meta property="article:modified_time" content="2023-04-08T12:28:38.000Z">
+<meta property="article:modified_time" content="2023-04-27T09:29:34.000Z">
 <meta property="article:author" content="HGragon">
 <meta name="twitter:card" content="summary">
   
@@ -218,7 +218,7 @@
   
   
     <h1 class="article-title" itemprop="name">
-      动态调试
+      安卓动态调试
     </h1>
   
 
@@ -244,7 +244,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">734字</span>
+      <span class="post-count">754字</span>
     </span>
   </span>
 
@@ -264,10 +264,13 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h1 id="1-So库动态调试"><a href="#1-So库动态调试" class="headerlink" title="1.So库动态调试"></a>1.So库动态调试</h1><h2 id="debugger调试"><a href="#debugger调试" class="headerlink" title="debugger调试"></a>debugger调试</h2><p>1<del>创建模拟器（有真机可以忽略这个）<br>2</del>在IDA里面找到android_server(dbgsrv目录)<br>3~把android_server文件放到手机&#x2F;data&#x2F;local&#x2F;tmp</p>
+    <h1 id="1-So库动态调试"><a href="#1-So库动态调试" class="headerlink" title="1.So库动态调试"></a>1.So库动态调试</h1><h2 id="debugger调试"><a href="#debugger调试" class="headerlink" title="debugger调试"></a>debugger调试</h2><p>1.创建模拟器（有真机可以忽略这个）<br>2.在IDA里面找到android_server(dbgsrv目录)<br>3.把android_server文件放到手机&#x2F;data&#x2F;local&#x2F;tmp</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb push 文件名 /data/local/tmp/as</span><br></pre></td></tr></table></figure>
 
-<p>4<del>打开一个cmd窗口：运行android_server<br>    1)adb shell 连接手机<br>    2）给一个最高权限：su<br>    3）来到&#x2F;data&#x2F;local&#x2F;tmp:cd &#x2F;data&#x2F;local&#x2F;tmp<br>    4)给androi_server一个最高的权限：chomd 777 android_server<br>    5)查看android_server是否拥有权限：ls -l<br>    6)运行andorid_server: .&#x2F;android_server（端口号默认是：23946）<br>    补充：运行andorid_server并且修改端口号：.&#x2F;android_server -p端口号<br>5</del>端口转发：<br>    adb forward tcp:23946 tcp:23946（之前转发的端口号是什么，这里就是什么）<br>6<del>打开DDMS：观察程序的端口号<br>7</del>挂起程序：<br>    adb shell am start -D -n 包名&#x2F;类名<br>    例子：adb shell am start -D -n com.example.javandk1&#x2F;.MainActivity<br>    补充：此时观察DDMS，被调试的程序前面有一个红色的虫子；<br>8<del>IDA里面勾选三项<br>    1）打开ida,选择debugger -第二项-Remote ARMlinux（第四项）<br>    2）添加hostname和portt：<br>        hostname：主机号（默认127.0.0.1）<br>        port：端口号（之前android_server运行时的端口号或者端口转发的端口号）<br>    3）出来进程列表：选择要调试的程序（可以ctrl+f，搜索包名）<br>    4）进来后，勾选三项：<br>    Suspend on process entry point程序入口点 断下<br>    Suspend on thread start&#x2F;exit线程的退出或启动 断下<br>    Suspend on library load&#x2F;unload库的加载和卸载 断下<br>补充：可以直接在这里F9（左上角有一个三角形）运行程序，然后放手；<br>         也可以，直接执行第九步，然后IDA运行程序<br>9</del>挂载、释放（放手）<br>    jdb -connect com.sun.jdi.SocketAttach:hostname&#x3D;127.0.0.1,port&#x3D;端口号<br>    补充：此时观察DDMS，被调试的程序前面有一个绿色的虫子；</p>
+<p>4.打开一个cmd窗口：运行android_server<br>    1)adb shell 连接手机<br>    2）给一个最高权限：su<br>    3）来到&#x2F;data&#x2F;local&#x2F;tmp:cd &#x2F;data&#x2F;local&#x2F;tmp<br>    4)给androi_server一个最高的权限：chomd 777 android_server<br>    5)查看android_server是否拥有权限：ls -l</p>
+<p>​	6)运行andorid_server: .&#x2F;android_server（端口号默认是：23946）</p>
+<p>IDA_LIBC_PATH&#x3D;&#x2F;apex&#x2F;com.android.runtime&#x2F;lib&#x2F;bionic&#x2F;libc.so（Android10）</p>
+<p>​	补充：运行andorid_server并且修改端口号：.&#x2F;android_server -p端口号<br>5.端口转发：<br>​	adb forward tcp:23946 tcp:23946（之前转发的端口号是什么，这里就是什么）<br>6.打开DDMS：观察程序的端口号<br>7.挂起程序：<br>​	adb shell am start -D -n 包名&#x2F;类名<br>​	例子：adb shell am start -D -n com.example.javandk1&#x2F;.MainActivity<br>​	补充：此时观察DDMS，被调试的程序前面有一个红色的虫子；<br>8.IDA里面勾选三项<br>​	1）打开ida,选择debugger -第二项-Remote ARMlinux（第四项）<br>​	2）添加hostname和portt：<br>​		hostname：主机号（默认127.0.0.1）<br>​		port：端口号（之前android_server运行时的端口号或者端口转发的端口号）<br>​	3）出来进程列表：选择要调试的程序（可以ctrl+f，搜索包名）<br>​	4）进来后，勾选三项：<br>​	Suspend on process entry point程序入口点 断下<br>​	Suspend on thread start&#x2F;exit线程的退出或启动 断下<br>​	Suspend on library load&#x2F;unload库的加载和卸载 断下<br>补充：可以直接在这里F9（左上角有一个三角形）运行程序，然后放手；<br>​         也可以，直接执行第九步，然后IDA运行程序<br>9.挂载、释放（放手）<br>​	jdb -connect com.sun.jdi.SocketAttach:hostname&#x3D;127.0.0.1,port&#x3D;端口号<br>​	补充：此时观察DDMS，被调试的程序前面有一个绿色的虫子；</p>
 <h2 id="普通调试"><a href="#普通调试" class="headerlink" title="普通调试"></a>普通调试</h2><p>adb devices</p>
 <p>安装程序<br>adb install d:\GGActivity.apk</p>
 <p>adb push d:\as &#x2F;data&#x2F;local&#x2F;tmp&#x2F;as<br>adb shell<br>su<br>chmod 777 &#x2F;data&#x2F;local&#x2F;tmp&#x2F;as<br>&#x2F;data&#x2F;local&#x2F;tmp&#x2F;as (-p 端口号)</p>
@@ -325,7 +328,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="http://example.com/2023/04/08/动态调试/" title="动态调试" target="_blank">http://example.com/2023/04/08/动态调试/</a>
+          <a href="http://example.com/2023/04/08/动态调试/" title="安卓动态调试" target="_blank">http://example.com/2023/04/08/动态调试/</a>
         </li>
         
         <li>
@@ -406,6 +409,15 @@
 
 
 <nav id="article-nav">
+  
+    <a href="/2023/04/11/%E5%AE%89%E5%8D%93%E9%98%B2%E6%8A%A4%E4%B8%8E%E7%BB%95%E8%BF%87/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          安卓防护与绕过
+        
+      </div>
+    </a>
   
   
     <a href="/2023/04/08/NDK%E7%9B%B8%E5%85%B3/" id="article-nav-older" class="article-nav-link-wrap">

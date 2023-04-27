@@ -6,13 +6,13 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>APK文件从创建到运行 | Hexo</title>
+  <title>APK文件从创建到安装 | Hexo</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="description" content="1.APK文件结构 12345678910- assets:静态资源文件- lib:当前程序使用的so文件(即动态链接库)- META-INF:证书签名文件(程序摘要,保证程序的完整性)--- MANIFEST.MF:哈希值--- ROVIOKEY.RSA:签名秘钥--- ROVIOKEY.SF:哈希值- res:程序资源文件(每个资源对应唯一ID,用于和代码交互)- AndroidManifes">
 <meta property="og:type" content="article">
-<meta property="og:title" content="APK文件从创建到运行">
+<meta property="og:title" content="APK文件从创建到安装">
 <meta property="og:url" content="http://example.com/2023/04/06/APK%E6%96%87%E4%BB%B6%E4%BB%8E%E5%88%9B%E5%BB%BA%E5%88%B0%E5%AE%89%E8%A3%85/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1.APK文件结构 12345678910- assets:静态资源文件- lib:当前程序使用的so文件(即动态链接库)- META-INF:证书签名文件(程序摘要,保证程序的完整性)--- MANIFEST.MF:哈希值--- ROVIOKEY.RSA:签名秘钥--- ROVIOKEY.SF:哈希值- res:程序资源文件(每个资源对应唯一ID,用于和代码交互)- AndroidManifes">
@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://example.com/images/apkdabao.png">
 <meta property="og:image" content="http://example.com/images/jvm.jpg">
 <meta property="article:published_time" content="2023-04-06T10:22:13.000Z">
-<meta property="article:modified_time" content="2023-04-06T11:15:38.000Z">
+<meta property="article:modified_time" content="2023-04-27T09:30:42.000Z">
 <meta property="article:author" content="HGragon">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/apkdabao.png">
@@ -221,7 +221,7 @@
   
   
     <h1 class="article-title" itemprop="name">
-      APK文件从创建到运行
+      APK文件从创建到安装
     </h1>
   
 
@@ -247,7 +247,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">351字</span>
+      <span class="post-count">355字</span>
     </span>
   </span>
 
@@ -279,7 +279,7 @@
 <p>(5) 对apk通过签名校验 -&gt; 签名后的<strong>signed.apk</strong></p>
 <p>(6) <strong>压缩对齐</strong>后 -&gt; 可执行可安装的apk</p>
 <p><strong>3.APK的安装流程</strong></p>
-<p>(1) 把APK文件复制到**&#x2F;data&#x2F;app<strong>中,并以包名命名,解压扫描安装包,并在</strong>&#x2F;data&#x2F;data**存放相关数据</p>
+<p>(1) 把APK文件复制到**&#x2F;data&#x2F;app<strong>中,并以包名命名,解压扫描安装包,并在</strong>&#x2F;data&#x2F;data**存放相关数据（例如so库）</p>
 <p>(2) 对dex进行优化操作，保存dex到**&#x2F;data&#x2F;dalvik-cache&#x2F;profiles&#x2F;**</p>
 <p>(3) 解析AndroidManifest.xml文件，得到四大组件</p>
 <p><strong>4.APK的运行流程</strong></p>
@@ -331,7 +331,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="http://example.com/2023/04/06/APK文件从创建到安装/" title="APK文件从创建到运行" target="_blank">http://example.com/2023/04/06/APK文件从创建到安装/</a>
+          <a href="http://example.com/2023/04/06/APK文件从创建到安装/" title="APK文件从创建到安装" target="_blank">http://example.com/2023/04/06/APK文件从创建到安装/</a>
         </li>
         
         <li>
@@ -413,20 +413,15 @@
 
 <nav id="article-nav">
   
-    <a href="/2023/04/06/%E5%A4%96%E6%8C%82%E6%89%8B%E6%AE%B5%E4%B9%8B%E9%9D%99%E6%80%81%E7%AF%A1%E6%94%B9%E8%B5%84%E6%BA%90/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2023/04/06/APK%E7%BB%93%E6%9E%84/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          外挂手段之静态篡改资源
+          APK文件从创建到运行
         
       </div>
     </a>
   
-  
-    <a href="/2023/04/06/APK%E7%BB%93%E6%9E%84/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">APK文件从创建到运行</div>
-      <i class="icon-circle-right"></i>
-    </a>
   
 </nav>
 

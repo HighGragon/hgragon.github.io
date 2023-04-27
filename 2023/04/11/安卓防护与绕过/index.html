@@ -6,17 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2023 | Hexo</title>
+  <title>安卓防护与绕过 | Hexo</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/2023/index.html">
+  <meta name="description" content="1.APK混淆1.java代码混淆 背景：使用反编译工具只能看到混淆之后的代码结构，看不到混淆之前的原始的代码 而如何反混淆：  如果有： 1mapping.txt  文件  有机会反混淆，恢复和还原出原始代码 背景： 有安卓项目源码的开发者，在折腾ProGuard时，才有（生成）的mapping.txt文件   实际上：作为要破解的人，往往没有   如果有：源文件和行号文件  有机会反混淆，恢复">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安卓防护与绕过">
+<meta property="og:url" content="http://example.com/2023/04/11/%E5%AE%89%E5%8D%93%E9%98%B2%E6%8A%A4%E4%B8%8E%E7%BB%95%E8%BF%87/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1.APK混淆1.java代码混淆 背景：使用反编译工具只能看到混淆之后的代码结构，看不到混淆之前的原始的代码 而如何反混淆：  如果有： 1mapping.txt  文件  有机会反混淆，恢复和还原出原始代码 背景： 有安卓项目源码的开发者，在折腾ProGuard时，才有（生成）的mapping.txt文件   实际上：作为要破解的人，往往没有   如果有：源文件和行号文件  有机会反混淆，恢复">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/detect-android-emulator.png">
+<meta property="og:image" content="http://example.com/images/self-debugg.png">
+<meta property="article:published_time" content="2023-04-11T12:24:39.000Z">
+<meta property="article:modified_time" content="2023-04-15T12:05:50.000Z">
 <meta property="article:author" content="HGragon">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/detect-android-emulator.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -207,310 +214,446 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-安卓防护与绕过" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/04/20/%E5%B8%B8%E7%94%A8%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" class="archive-article-date">
-        <time datetime="2023-04-20T13:29:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-20</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/04/20/%E5%B8%B8%E7%94%A8%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" target="_blank">常用加密算法</a>
   
+    <h1 class="article-title" itemprop="name">
+      安卓防护与绕过
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/04/20/%E5%AE%89%E5%8D%93hook%E6%A1%86%E6%9E%B6/" class="archive-article-date">
-        <time datetime="2023-04-20T12:25:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-20</time>
-</a>
-
-        </div>
-    	 
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/04/20/%E5%AE%89%E5%8D%93hook%E6%A1%86%E6%9E%B6/" target="_blank">安卓 hook</a>
-  
-    </h1>
-  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
 
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
 <a href="/2023/04/11/%E5%AE%89%E5%8D%93%E9%98%B2%E6%8A%A4%E4%B8%8E%E7%BB%95%E8%BF%87/" class="archive-article-date">
         <time datetime="2023-04-11T12:24:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-11</time>
 </a>
 
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">4.7k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">22分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="1-APK混淆"><a href="#1-APK混淆" class="headerlink" title="1.APK混淆"></a>1.APK混淆</h1><p><strong>1.java代码混淆</strong></p>
+<p>背景：使用反编译工具只能看到混淆之后的代码结构，看不到混淆之前的原始的代码</p>
+<p>而如何反混淆：</p>
+<ul>
+<li><p>如果有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mapping.txt</span><br></pre></td></tr></table></figure>
+
+<p>文件</p>
+<ul>
+<li>有机会反混淆，恢复和还原出原始代码</li>
+<li>背景：<ul>
+<li>有安卓项目源码的开发者，在折腾ProGuard时，才有（生成）的mapping.txt文件</li>
+</ul>
+</li>
+<li>实际上：作为要破解的人，往往没有</li>
+</ul>
+</li>
+<li><p>如果有：源文件和行号文件</p>
+<ul>
+<li>有机会反混淆，恢复和还原出原始代码</li>
+<li>背景：<ul>
+<li>许多APK开发者为了在崩溃时保存源文件类名、行号等信息会在APK混淆时添加以下规则保留源文件信息</li>
+<li>-keepattributes SourceFile,LineNumberTable</li>
+</ul>
+</li>
+<li>实际上：作为要破解的人，往往没有</li>
+</ul>
+</li>
+</ul>
+<p><strong>一些反混淆的工具</strong></p>
+<ul>
+<li>JEB&#x3D;JEB Decompiler<ul>
+<li>JEB2 被称为反混淆神器</li>
+<li>官网：<ul>
+<li><a target="_blank" rel="noopener" href="https://www.pnfsoftware.com/">https://www.pnfsoftware.com/</a></li>
+</ul>
+</li>
+<li>一些用于反混淆的插件<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/S3cuRiTy-Er1C/JebScripts">S3cuRiTy-Er1C&#x2F;JebScripts: Jeb public scripts</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/flankerhqd/jebPlugins">flankerhqd&#x2F;jebPlugins: Various Jeb plugins, including obfuscation restore</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/enovella/jebscripts">enovella&#x2F;jebscripts: A set of JEB Python&#x2F;Java scripts for reverse engineering Android obfuscated code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Simplify<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/CalebFenton/simplify">CalebFenton&#x2F;simplify: Generic Android Deobfuscator</a></li>
+</ul>
+</li>
+</ul>
+<p><strong>2.APK资源混淆</strong></p>
+<p>效果:APK无法重编译，即对资源反编译时会存在问题，所以回编译也会存在问题</p>
+<p>反混淆；</p>
+<p>使用MT管理器查看&#x2F;data&#x2F;app的对应apk，直接在apk中修改文件并打包（不直接动资源文件）</p>
+<h1 id="2-签名校验防篡改"><a href="#2-签名校验防篡改" class="headerlink" title="2.签名校验防篡改"></a>2.签名校验防篡改</h1><p>签名校验相关方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">getPackageManager</span><br><span class="line">getPackageInfo</span><br><span class="line">getPackageName</span><br><span class="line">signatures </span><br></pre></td></tr></table></figure>
+
+<p>通过这几个函数获取现有签名的hash(CRC)，并与原来的签名hash进行比对</p>
+<p>绕过手段：</p>
+<p>（1）查看程序崩溃位置（如onCreate())等，来确定签名函数所在位置。</p>
+<p>（2）利用monitor的sys.err日志查看调用栈</p>
+<p>（3）搜索KillProcess并hook</p>
+<h1 id="3-模拟器检测"><a href="#3-模拟器检测" class="headerlink" title="3.模拟器检测"></a>3.模拟器检测</h1><p>看雪sossai大佬的文章：Android模拟器检测体系梳理（<em><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-255672.htm">https://bbs.pediy.com/thread-255672.htm</a></em>）</p>
+<p>看雪大佬Vancir大佬的文章：检测Android虚拟机的方法和代码实现（<em><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-225717.htm">https://bbs.pediy.com/thread-225717.htm</a></em>）</p>
+<p><img src="/../images/detect-android-emulator.png"></p>
+<h1 id="4-反调试"><a href="#4-反调试" class="headerlink" title="4.反调试"></a>4.反调试</h1><p><strong>1.关键文件名检测</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">check</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">const</span> <span class="type">char</span>* rootPath = <span class="string">&quot;/data/local/tmp&quot;</span>;</span><br><span class="line">    DIR* dir;</span><br><span class="line">    dir = <span class="built_in">opendir</span>(rootPath);</span><br><span class="line">	<span class="type">int</span> pid = <span class="built_in">getpid</span>();</span><br><span class="line">    <span class="keyword">if</span> (dir!= <span class="literal">NULL</span>) &#123;</span><br><span class="line">        dirent *currentDir;</span><br><span class="line">        <span class="keyword">while</span> ((currentDir = <span class="built_in">readdir</span>(dir)) != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">strncmp</span>(currentDir-&gt;d_name,<span class="string">&quot;android_server&quot;</span>,<span class="number">14</span>)==<span class="number">0</span>)&#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,currentDir-&gt;d_name);</span><br><span class="line">				<span class="built_in">kill</span>(pid,SIGKILL);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>绕过：更改文件名</p>
+<p><strong>2.常用端口检测</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">check</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    FILE* pfile=<span class="literal">NULL</span>;</span><br><span class="line">    <span class="type">char</span> buf[<span class="number">0x1000</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="comment">// 执行命令</span></span><br><span class="line">    <span class="type">char</span>* strCatTcp= <span class="string">&quot;cat /proc/net/tcp |grep :5D8A&quot;</span>;</span><br><span class="line">    <span class="type">char</span>* strNetstat=<span class="string">&quot;netstat |grep :23946&quot;</span>;</span><br><span class="line">    pfile=<span class="built_in">popen</span>(strCatTcp,<span class="string">&quot;r&quot;</span>);</span><br><span class="line">	<span class="type">int</span> pid=<span class="built_in">getpid</span>();</span><br><span class="line">    <span class="keyword">if</span>(<span class="literal">NULL</span>==pfile)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;打开命令失败!\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 获取结果</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">fgets</span>(buf,<span class="built_in">sizeof</span>(buf),pfile))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 执行到这里，判定为调试状态</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;执行cat /proc/net/tcp |grep :5D8A的结果:\n&quot;</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,buf);</span><br><span class="line">		<span class="type">int</span> ret=<span class="built_in">kill</span>(pid,SIGKILL);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">pclose</span>(pfile);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>绕过：更改端口</p>
+<p><strong>3.轮询检测</strong></p>
+<p>循环进行TracePid和进程名称检测</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">coursecheck</span><span class="params">(<span class="type">pid_t</span> pid)</span></span>&#123;</span><br><span class="line">	<span class="type">const</span> <span class="type">int</span> bufsize = <span class="number">1024</span>;</span><br><span class="line">    <span class="type">char</span> filename[bufsize];</span><br><span class="line">    <span class="type">char</span> line[bufsize];</span><br><span class="line">    <span class="type">char</span> name[bufsize];</span><br><span class="line">    <span class="type">char</span> nameline[bufsize];</span><br><span class="line">    <span class="type">int</span> pid = <span class="built_in">getpid</span>();</span><br><span class="line">    <span class="comment">//先读取Tracepid的值</span></span><br><span class="line">    <span class="built_in">sprintf</span>(filename, <span class="string">&quot;/proc/%d/status&quot;</span>, pid);</span><br><span class="line">    FILE *fd=<span class="built_in">fopen</span>(filename,<span class="string">&quot;r&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(fd!=<span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">        <span class="keyword">while</span>(<span class="built_in">fgets</span>(line,bufsize,fd))</span><br><span class="line">		&#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">strstr</span>(line,<span class="string">&quot;TracerPid&quot;</span>)!=<span class="literal">NULL</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="type">int</span> statue =<span class="built_in">atoi</span>(&amp;line[<span class="number">10</span>]);</span><br><span class="line">                <span class="keyword">if</span>(statue!=<span class="number">0</span>)</span><br><span class="line">				&#123;</span><br><span class="line">                    <span class="built_in">sprintf</span>(name,<span class="string">&quot;/proc/%d/cmdline&quot;</span>,statue);</span><br><span class="line">                    FILE *fdname=<span class="built_in">fopen</span>(name,<span class="string">&quot;r&quot;</span>);</span><br><span class="line">                    <span class="keyword">if</span>(fdname!= <span class="literal">NULL</span>)</span><br><span class="line">					&#123;</span><br><span class="line">                        <span class="keyword">while</span>(<span class="built_in">fgets</span>(nameline,bufsize,fdname))</span><br><span class="line">						&#123;</span><br><span class="line">                            <span class="keyword">if</span>(<span class="built_in">strstr</span>(nameline,<span class="string">&quot;android_server&quot;</span>)!=<span class="literal">NULL</span>)</span><br><span class="line">							&#123;</span><br><span class="line">                                <span class="type">int</span> ret=<span class="built_in">kill</span>(pid,SIGKILL);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="built_in">fclose</span>(fdname);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">fclose</span>(fd);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> *<span class="title">anti_debugger_thread</span><span class="params">(<span class="type">void</span> *data)</span></span>&#123;</span><br><span class="line">    <span class="type">pid_t</span> pid = <span class="built_in">getpid</span>();</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">        <span class="built_in">check_debugger</span>(pid);</span><br><span class="line">        <span class="built_in">sleep</span>(<span class="number">1</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> anti-<span class="built_in">debugger</span>()&#123;</span><br><span class="line">    <span class="type">pthread_t</span> tid;</span><br><span class="line">    <span class="built_in">pthread_create</span>(&amp;tid,<span class="literal">NULL</span>,&amp;anti_debugger_thread,<span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>绕过：<strong>刷机改系统内核，让tracepid永远为0</strong>（反绕过方案：可以创建一个子进程，让子进程主动ptrace自身设为调试状态，此时正常情况下，子进程的tracepid应该不为0。此时我们检测子进程的tracepid是否为0，如果为0说明源码被修改了），直接绕过该函数</p>
+<p>反绕过方案代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">checkSystem</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 建立管道</span></span><br><span class="line">    <span class="type">int</span> pipefd[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">if</span> (<span class="number">-1</span> == <span class="built_in">pipe</span>(pipefd))&#123;</span><br><span class="line">        <span class="built_in">LOGA</span>(<span class="string">&quot;pipe() error.\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 创建子进程</span></span><br><span class="line">    <span class="type">pid_t</span> pid = fork();</span><br><span class="line">    <span class="built_in">LOGB</span>(<span class="string">&quot;father pid is: %d\n&quot;</span>,<span class="built_in">getpid</span>());</span><br><span class="line">    <span class="built_in">LOGB</span>(<span class="string">&quot;child pid is: %d\n&quot;</span>,pid);</span><br><span class="line">    <span class="comment">// for失败</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="number">0</span> &gt; pid) &#123;</span><br><span class="line">        <span class="built_in">LOGA</span>(<span class="string">&quot;fork() error.\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 子进程程序</span></span><br><span class="line">    <span class="type">int</span> childTracePid=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">0</span> == pid)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> iRet = <span class="built_in">ptrace</span>(PTRACE_TRACEME, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="number">-1</span> == iRet)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">LOGA</span>(<span class="string">&quot;child ptrace failed.\n&quot;</span>);</span><br><span class="line">            <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">LOGA</span>(<span class="string">&quot;%s ptrace succeed.\n&quot;</span>);</span><br><span class="line">        <span class="comment">// 获取tracepid</span></span><br><span class="line">        <span class="type">char</span> pathbuf[<span class="number">0x100</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="type">char</span> readbuf[<span class="number">100</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="built_in">sprintf</span>(pathbuf, <span class="string">&quot;/proc/%d/status&quot;</span>, <span class="built_in">getpid</span>());</span><br><span class="line">        <span class="type">int</span> fd = <span class="built_in">openat</span>(<span class="literal">NULL</span>, pathbuf, O_RDONLY);</span><br><span class="line">        <span class="keyword">if</span> (<span class="number">-1</span> == fd) &#123;</span><br><span class="line">        	<span class="built_in">LOGA</span>(<span class="string">&quot;openat failed.\n&quot;</span>);</span><br><span class="line">    	&#125;</span><br><span class="line">        <span class="built_in">read</span>(fd, readbuf, <span class="number">100</span>);</span><br><span class="line">        <span class="built_in">close</span>(fd);</span><br><span class="line">        <span class="type">uint8_t</span> *start = (<span class="type">uint8_t</span> *) readbuf;</span><br><span class="line">        <span class="type">uint8_t</span> des[<span class="number">100</span>] = &#123;<span class="number">0x54</span>, <span class="number">0x72</span>, <span class="number">0x61</span>, <span class="number">0x63</span>, <span class="number">0x65</span>, <span class="number">0x72</span>, <span class="number">0x5</span></span><br><span class="line">        <span class="number">0</span>, <span class="number">0x69</span>, <span class="number">0x64</span>, <span class="number">0x3A</span>,<span class="number">0x09</span>&#125;;</span><br><span class="line">        <span class="type">int</span> i = <span class="number">100</span>;</span><br><span class="line">        <span class="type">bool</span> flag= <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">while</span> (--i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( <span class="number">0</span>==<span class="built_in">memcmp</span>(start,des,<span class="number">10</span>) )</span><br><span class="line">            &#123;</span><br><span class="line">                start=start+<span class="number">11</span>;</span><br><span class="line">                childTracePid=<span class="built_in">atoi</span>((<span class="type">char</span>*)start);</span><br><span class="line">                flag= <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                start=start+<span class="number">1</span>;</span><br><span class="line">                flag= <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="comment">//while</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="literal">false</span>==flag) &#123;</span><br><span class="line">            <span class="built_in">LOGA</span>(<span class="string">&quot;get tracepid failed.\n&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 向管道写入数据</span></span><br><span class="line">        <span class="built_in">close</span>(pipefd[<span class="number">0</span>]); <span class="comment">// 关闭管道读端</span></span><br><span class="line">        <span class="built_in">write</span>(pipefd[<span class="number">1</span>], (<span class="type">void</span>*)&amp;childTracePid,<span class="number">4</span>); <span class="comment">// 向管道写端写入数据</span></span><br><span class="line">        <span class="built_in">close</span>(pipefd[<span class="number">1</span>]); <span class="comment">// 写完关闭管道写端</span></span><br><span class="line">        <span class="built_in">LOGA</span>(<span class="string">&quot;child succeed, Finish.\n&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 父进程程序</span></span><br><span class="line">        <span class="built_in">LOGA</span>(<span class="string">&quot;开始等待子进程.\n&quot;</span>);</span><br><span class="line">        <span class="built_in">waitpid</span>(pid,<span class="literal">NULL</span>,<span class="literal">NULL</span>); <span class="comment">// 等待子进程结束</span></span><br><span class="line">        <span class="type">int</span> buf2 = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">close</span>(pipefd[<span class="number">1</span>]); <span class="comment">// 关闭写端</span></span><br><span class="line">        <span class="built_in">read</span>(pipefd[<span class="number">0</span>], (<span class="type">void</span>*)&amp;buf2, <span class="number">4</span>); <span class="comment">// 从读端读取数据到buf</span></span><br><span class="line">        <span class="built_in">close</span>(pipefd[<span class="number">0</span>]); <span class="comment">// 关闭读端</span></span><br><span class="line">        <span class="built_in">LOGB</span>(<span class="string">&quot;子进程传递的内容为:%d\n&quot;</span>, buf2); <span class="comment">// 输出内容</span></span><br><span class="line">        <span class="comment">// 判断子进程ptrace后的tracepid</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="number">0</span> == buf2) &#123;</span><br><span class="line">        	<span class="built_in">LOGA</span>(<span class="string">&quot;源码被修改了.\n&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        	<span class="built_in">LOGA</span>(<span class="string">&quot;源码没有被修改.\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">smain</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">bool</span> bRet=<span class="built_in">checkSystem</span>();</span><br><span class="line">    <span class="keyword">if</span>(<span class="literal">true</span>==bRet)</span><br><span class="line">    	<span class="built_in">LOGA</span>(<span class="string">&quot;check succeed.\n&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">LOGA</span>(<span class="string">&quot;check failed.\n&quot;</span>);</span><br><span class="line">    <span class="built_in">LOGB</span>(<span class="string">&quot;main Finish pid:%d\n&quot;</span>,<span class="built_in">getpid</span>());</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>4.self-debugger</strong></p>
+<p>可以作为受保护进程的主流反调试方案,消耗的资源比较少,几乎不影响受保护进程性能,可以轻易地组织其他进程调试受保护的进程</p>
+<p>首先介绍一下被调试进程的状态。当一个进程被调试时,它只有两个状态：运行和暂停</p>
+<p>暂停状态可以细分为4个状态：</p>
+<ul>
+<li><p><strong>signal-delivery-stop</strong>:当一个进程收到除SIGKILL外的信号时，内核将选择进程内的任意一个线程处理这个信号，假如被选择的线程正在被调试，则这个线程进入了signal-delivery- stop(线程进入暂停状态，调试器使用WaitPid函数等待这个事件，并取得这个信号)状态。此时，进程并没有真的收到这个信号，而且这个信号可以被调试器丢弃，导致进程永远无法收到这个信号。</p>
+</li>
+<li><p><strong>group-stop</strong>:这个状态是在调试多线程进程时会遇到的一个比较棘手的暂停状态。设想存在这种场景:调试器A正在调试进程B,调试器A出现了一个致命的错误，导致进程A崩溃，那么此时最好的情况是进程B在脱离调试器后继续自动运行。但是，当进程B在被调试的过程中进入了group-stop 状态时，那么在进程A崩溃后，进程B将陷入stoped状态，只有当进程B收到SIGCONT信号时，进程B才会继续运行。这不是大多数调试器所希望的，更不是Self-debugging反调试方案所希望的，因此在调试的过程中，必须避免进程进入group -stop状态。被调试进程进入group-stop状态必须满足如下两个条件。</p>
+<ul>
+<li><p>进程&#x2F;线程处于被调试状态。</p>
+</li>
+<li><p>被调试的进程或线程收到了暂停信号。</p>
+<p>调试器可以通过避免被调试的进程收到暂停信号，从而避免进程陷入group-stop状态，总共有如下4个信号: SIGSTOP、SIGTSTP、SIGTTIN 和SIGTTOU,它们会导致进程陷入group-stop 状态。</p>
+</li>
+</ul>
+</li>
+<li><p>syscall-stop和ptrace-event-stop状态</p>
+</li>
+</ul>
+<p>原理图：</p>
+<p><img src="/../images/self-debugg.png"></p>
+<p>代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;errno.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/prctl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/ptrace.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> eprintf(...) fprintf(stderr, ##__VA_ARGS__)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">sleep</span>(<span class="number">60</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">may_cause_group_stop</span><span class="params">(<span class="type">int</span> signo)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">switch</span>(signo) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">case</span> SIGSTOP:</span><br><span class="line">        <span class="keyword">case</span> SIGTSTP:</span><br><span class="line">        <span class="keyword">case</span> SIGTTIN:</span><br><span class="line">        <span class="keyword">case</span> SIGTTOU:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">handle_events</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> status = <span class="number">0</span>;</span><br><span class="line">    <span class="type">pid_t</span> pid = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">do</span> </span><br><span class="line">    &#123;</span><br><span class="line">        pid = <span class="built_in">TEMP_FAILURE_RETRY</span>(<span class="built_in">waitpid</span>(<span class="number">-1</span>, &amp;status, __WALL));</span><br><span class="line">        <span class="keyword">if</span> (pid &lt; <span class="number">0</span>) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">perror</span>(<span class="string">&quot;waitpid&quot;</span>);</span><br><span class="line">            <span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">WIFEXITED</span>(status)) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">eprintf</span>(<span class="string">&quot;%d exited, status=%d\n&quot;</span>, pid,  <span class="built_in">WEXITSTATUS</span>(status));</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">WIFSIGNALED</span>(status)) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">eprintf</span>(<span class="string">&quot;%d killed by signal %d\n&quot;</span>, pid, <span class="built_in">WTERMSIG</span>(status));</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">WIFSTOPPED</span>(status)) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> signo = <span class="built_in">WSTOPSIG</span>(status);</span><br><span class="line">            <span class="built_in">eprintf</span>(<span class="string">&quot;%d stopped by signal %d\n&quot;</span>, pid, signo);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">may_cause_group_stop</span>(signo)) </span><br><span class="line">            &#123;</span><br><span class="line">                signo = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="type">long</span> err = <span class="built_in">ptrace</span>(PTRACE_CONT, pid, <span class="literal">NULL</span>, signo);</span><br><span class="line">            <span class="keyword">if</span> (err &lt; <span class="number">0</span>) </span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">perror</span>(<span class="string">&quot;PTRACE_CONT&quot;</span>);</span><br><span class="line">                <span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">while</span> (!<span class="built_in">WIFEXITED</span>(status) &amp;&amp; !<span class="built_in">WIFSIGNALED</span>(status));</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">safe_attach</span><span class="params">(<span class="type">pid_t</span> pid)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">long</span> err = <span class="built_in">ptrace</span>(PTRACE_ATTACH, pid, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">if</span> (err &lt; <span class="number">0</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">perror</span>(<span class="string">&quot;PTRACE_ATTACH&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">    <span class="type">int</span> status = <span class="number">0</span>;</span><br><span class="line">    err = <span class="built_in">TEMP_FAILURE_RETRY</span>(<span class="built_in">waitpid</span>(pid, &amp;status, __WALL));</span><br><span class="line">    <span class="keyword">if</span> (err &lt; <span class="number">0</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">perror</span>(<span class="string">&quot;waitpid&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">WIFEXITED</span>(status)) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">eprintf</span>(<span class="string">&quot;%d exited, status=%d\n&quot;</span>, pid,  <span class="built_in">WEXITSTATUS</span>(status));</span><br><span class="line">        <span class="built_in">exit</span>(EXIT_SUCCESS);</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">WIFSIGNALED</span>(status)) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">eprintf</span>(<span class="string">&quot;%d killed by signal %d\n&quot;</span>, pid, <span class="built_in">WTERMSIG</span>(status));</span><br><span class="line">        <span class="built_in">exit</span>(EXIT_SUCCESS);</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">WIFSTOPPED</span>(status)) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> signo = <span class="built_in">WSTOPSIG</span>(status);</span><br><span class="line">        <span class="built_in">eprintf</span>(<span class="string">&quot;%d stopped by signal %d\n&quot;</span>, pid, signo);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">may_cause_group_stop</span>(signo)) </span><br><span class="line">        &#123;</span><br><span class="line">            signo = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        err = <span class="built_in">ptrace</span>(PTRACE_CONT, pid, <span class="literal">NULL</span>, signo);</span><br><span class="line">        <span class="keyword">if</span> (err &lt; <span class="number">0</span>) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">perror</span>(<span class="string">&quot;PTRACE_CONT&quot;</span>);</span><br><span class="line">            <span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">protect_father</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">pid_t</span> ppid =  <span class="built_in">getppid</span>();<span class="comment">//获取父进程pid</span></span><br><span class="line">    <span class="built_in">safe_attach</span>(ppid);</span><br><span class="line">    <span class="built_in">handle_events</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">eprintf</span>(<span class="string">&quot;main process pid: %d\n&quot;</span>, <span class="built_in">getpid</span>());</span><br><span class="line">    <span class="built_in">prctl</span>(PR_SET_DUMPABLE, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="type">pid_t</span> pid = fork();</span><br><span class="line">    <span class="keyword">if</span> (pid &lt; <span class="number">0</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">perror</span>(<span class="string">&quot;fork&quot;</span>);</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (pid == <span class="number">0</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">eprintf</span>(<span class="string">&quot;child process pid: %d\n&quot;</span>, <span class="built_in">getpid</span>());</span><br><span class="line">        <span class="built_in">protect_father</span>();</span><br><span class="line">        <span class="built_in">exit</span>(EXIT_SUCCESS);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">eprintf</span>(<span class="string">&quot;main process start loop...\n&quot;</span>);</span><br><span class="line">    <span class="built_in">loop</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>绕过：</p>
+<ul>
+<li><p>让父进程不fork</p>
+<p>修改&#x2F;bionic&#x2F;libc&#x2F;bionic&#x2F;fork.c里面的fork函数来使得目标进程fork失败</p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> BUE LEN 1024</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">get_target2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">char</span> res[BUF LEN] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="type">char</span> cmd[<span class="number">128</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="built_in">sprintf</span>(cmd,<span class="string">&quot;/proc/%d/cmdline&quot;</span>,<span class="built_in">getpid</span>());</span><br><span class="line">    <span class="type">int</span> fd = <span class="built_in">open</span>(cmd,O_RDONLY);</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">read</span>(fd,res,BUF_LEN))&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">close</span>(fd);</span><br><span class="line">        <span class="type">char</span> targetPath[BUF_LEN];</span><br><span class="line">        <span class="built_in">sprintf</span>(targetpath,<span class="string">&quot;/data/data/%s&quot;</span>,res);</span><br><span class="line">    	<span class="keyword">if</span> ((<span class="built_in">access</span> (targetPath,F_OK)) == <span class="number">0</span>)&#123;</span><br><span class="line">    		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    	&#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">fork</span> <span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> ret;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">get_target2</span>())</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>把while函数循环去掉</li>
+<li>不能调试父进程，但可以调试子进程，配合双IDA调试，挂起子进程</li>
+</ul>
+<p><strong>5.java层反调试</strong></p>
+<p>安卓程序动态调试条件(两个满足其中之一)：</p>
+<ul>
+<li>在AndroidManifest.xml中,application标签下,Android:debugable &#x3D; true</li>
+<li>系统默认调试,在build.prop(boot.img),ro.debugable &#x3D; 1</li>
+</ul>
+<p>Android SDK中有android.os.debug类提供了一个isDebuggerConnected方法，用于判断JDWP调试器是否正在工作</p>
+<p><strong>6.父进程名检测以及自身进程名以及apk线程检测</strong></p>
+<p><strong>（1）父进程名检测</strong></p>
+<p>原理：</p>
+<p>有的时候不使用apk附加调试的方法进行逆向，而是写一个.out可执行文件直接加载so进行</p>
+<p>调试，这样程序的父进程名和正常启动apk的父进程名是不一样的。</p>
+<p>测试发现：</p>
+<p>（1）正常启动的apk程序：父进程是zygote</p>
+<p>（2）调试启动的apk程序：在AS中用LLDB调试发现父进程还是zygote</p>
+<p>（3）附加调试的apk程序：父进程是zygote</p>
+<p>（4）vs远程调试 用可执行文件加载so:父进程名为gdbserver</p>
+<p><strong>结论：父进程名非zygote的，判定为调试状态。</strong></p>
+<p><strong>做法：</strong></p>
+<p>读取&#x2F;proc&#x2F;pid&#x2F;cmdline，查看内容是否为zygote</p>
+<p><strong>自身进程名检测原理：</strong></p>
+<p>正常进程名一般是apk的com.xxx这样的格式。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">CheckParents</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 设置buf</span></span><br><span class="line">    <span class="type">char</span> strPpidCmdline[<span class="number">0x100</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="built_in">snprintf</span>(strPpidCmdline, <span class="built_in">sizeof</span>(strPpidCmdline), <span class="string">&quot;/proc/%d/cmdline&quot;</span>, <span class="built_in">getppid</span>());</span><br><span class="line">    <span class="comment">// 打开文件</span></span><br><span class="line">    <span class="type">int</span> file=<span class="built_in">open</span>(strPpidCmdline,O_RDONLY);</span><br><span class="line">    <span class="keyword">if</span>(file&lt;<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">LOGA</span>(<span class="string">&quot;CheckParents open错误!\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 文件内容读入内存</span></span><br><span class="line">    <span class="built_in">memset</span>(strPpidCmdline,<span class="number">0</span>,<span class="built_in">sizeof</span>(strPpidCmdline));</span><br><span class="line">    <span class="type">ssize_t</span> ret=<span class="built_in">read</span>(file,strPpidCmdline,<span class="built_in">sizeof</span>(strPpidCmdline));</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">-1</span>==ret)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">LOGA</span>(<span class="string">&quot;CheckParents read错误!\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 没找到返回0</span></span><br><span class="line">    <span class="type">char</span> sRet=<span class="built_in">strstr</span>(strPpidCmdline,<span class="string">&quot;zygote&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(<span class="literal">NULL</span>==sRet)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 执行到这里，判定为调试状态</span></span><br><span class="line">        <span class="built_in">LOGA</span>(<span class="string">&quot;父进程cmdline没有zygote子串!\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> i=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>（2）自身进程名检测</strong></p>
+<p>正常进程名一般是apk的com.xxx这样的格式。</p>
+<p><strong>（3）apk线程检测</strong></p>
+<p>正常apk进程一般会有十几个线程在运行(比如会有jdwp线程)，</p>
+<p>自己写可执行文件加载so一般只有一个线程，</p>
+<p>可以根据这个差异来进行调试环境检测。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">CheckTaskCount</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">char</span> buf[<span class="number">0x100</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="type">char</span>* str=<span class="string">&quot;/proc/%d/task&quot;</span>;</span><br><span class="line">    <span class="built_in">snprintf</span>(buf,<span class="built_in">sizeof</span>(buf),str,<span class="built_in">getpid</span>());</span><br><span class="line">    <span class="comment">// 打开目录:</span></span><br><span class="line">    DIR* pdir = <span class="built_in">opendir</span>(buf);</span><br><span class="line">    <span class="keyword">if</span> (!pdir)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">perror</span>(<span class="string">&quot;CheckTaskCount open() fail.\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 查看目录下文件个数:</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">dirent</span>* pde=<span class="literal">NULL</span>;</span><br><span class="line">    <span class="type">int</span> Count=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> ((pde = <span class="built_in">readdir</span>(pdir)))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 字符过滤</span></span><br><span class="line">        <span class="keyword">if</span> ((pde-&gt;d_name[<span class="number">0</span>] &lt;= <span class="string">&#x27;9&#x27;</span>) &amp;&amp; (pde-&gt;d_name[<span class="number">0</span>] &gt;= <span class="string">&#x27;0&#x27;</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            ++Count;</span><br><span class="line">            <span class="built_in">LOGB</span>(<span class="string">&quot;%d 线程名称:%s\n&quot;</span>,Count,pde-&gt;d_name);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">LOGB</span>(<span class="string">&quot;线程个数为：%d&quot;</span>,Count);</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">1</span>&gt;=Count)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 此处判定为调试状态.</span></span><br><span class="line">        <span class="built_in">LOGA</span>(<span class="string">&quot;调试状态!\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> i=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>7.断点指令检测</strong></p>
+<p>原理：</p>
+<p>so文件中函数的指令是固定的，但如果被下了软件断点,指令就会发生改变(断点地址被改为bkpt断点指令),因此可以通过检测断点指令</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// IDA 6.8 断点扫描</span></span><br><span class="line"><span class="comment">// 参数1：函数首地址 参数2：函数size</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">uint8_t</span> u8;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">uint32_t</span> u32;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">checkbkpt</span><span class="params">(u8* addr,u32 size)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 结果</span></span><br><span class="line">    u32 uRet=<span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 断点指令</span></span><br><span class="line">    u8 armBkpt[<span class="number">4</span>]=&#123;<span class="number">0xf0</span>,<span class="number">0x01</span>,<span class="number">0xf0</span>,<span class="number">0xe7</span>&#125;;</span><br><span class="line">    u8 thumbBkpt[<span class="number">2</span>]=&#123;<span class="number">0x10</span>,<span class="number">0xde</span>&#125;;</span><br><span class="line">    <span class="comment">// 判断模式</span></span><br><span class="line">    <span class="type">int</span> mode=(u32)addr%<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">1</span>==mode) &#123;</span><br><span class="line">        <span class="built_in">LOGA</span>(<span class="string">&quot;checkbkpt:(thumb mode)该地址为thumb模式\n&quot;</span>);</span><br><span class="line">        u8* start=(u8*)((u32)addr<span class="number">-1</span>);</span><br><span class="line">        u8* end=(u8*)((u32)start+size);</span><br><span class="line">        <span class="comment">// 遍历对比</span></span><br><span class="line">        <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(start &gt;= end) &#123;</span><br><span class="line">                uRet=<span class="number">0</span>;</span><br><span class="line">                <span class="built_in">LOGA</span>(<span class="string">&quot;checkbkpt:(no find bkpt)没有发现断点.\n&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>( <span class="number">0</span>==<span class="built_in">memcmp</span>(start,thumbBkpt,<span class="number">2</span>) ) &#123;</span><br><span class="line">                uRet=<span class="number">1</span>;</span><br><span class="line">                <span class="built_in">LOGA</span>(<span class="string">&quot;checkbkpt:(find it)发现断点.\n&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            start=start+<span class="number">2</span>;</span><br><span class="line">        &#125;<span class="comment">//while</span></span><br><span class="line">        &#125;<span class="comment">//if</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">LOGA</span>(<span class="string">&quot;checkbkpt:(arm mode)该地址为arm模式\n&quot;</span>);</span><br><span class="line">        u8* start=(u8*)addr;</span><br><span class="line">        u8* end=(u8*)((u32)start+size);</span><br><span class="line">        <span class="comment">// 遍历对比</span></span><br><span class="line">        <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (start &gt;= end) &#123;</span><br><span class="line">                uRet = <span class="number">0</span>;</span><br><span class="line">                <span class="built_in">LOGA</span>(<span class="string">&quot;checkbkpt:(no find)没有发现断点.\n&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (<span class="number">0</span> == <span class="built_in">memcmp</span>(start,armBkpt , <span class="number">4</span>))&#123;</span><br><span class="line">                uRet = <span class="number">1</span>;</span><br><span class="line">                <span class="built_in">LOGA</span>(<span class="string">&quot;checkbkpt:(find it)发现断点.\n&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        	start = start + <span class="number">4</span>;</span><br><span class="line">        &#125;<span class="comment">//while</span></span><br><span class="line">    &#125;<span class="comment">//else</span></span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>8.单步调试陷阱</strong></p>
+<p>原理：</p>
+<p>调试器从下断点到执行断点的过程分析：</p>
+<p>1 保存：保存目标处指令</p>
+<p>2 替换：目标处指令替换为断点指令</p>
+<p>3 命中断点：命中断点指令(引发中断 或者说发出信号)</p>
+<p>4 收到信号：调试器收到信号后，执行调试器注册的信号处理函数。</p>
+<p>5 恢复：调试器处理函数恢复保存的指令</p>
+<p>6 回退：回退PC寄存器</p>
+<p>7 控制权回归程序.</p>
+<p>主动设置断点指令&#x2F;注册信号处理函数的反调试方案:</p>
+<p>1 在函数中写入断点指令</p>
+<p>2 在代码中注册断点信号处理函数</p>
+<p>3 程序执行到断点指令，发出信号</p>
+<p>分两种情况：</p>
+<p>(1)非调试状态</p>
+<p>进入自己注册的函数，NOP指令替换断点指令，回退PC后正常指令。</p>
+<p>(执行断点发出信号—进入处理信号函数—NOP替换断点—退回PC)</p>
+<p>(2)调试状态</p>
+<p>进入调试器的断点处理流程，他会恢复目标处指令失败，然后回退PC，进入死循环</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> dynamic_ccode[] = &#123;<span class="number">0x1f</span>,<span class="number">0xb4</span>, <span class="comment">//push &#123;r0-r4&#125;</span></span><br><span class="line">                        <span class="number">0x01</span>,<span class="number">0xde</span>, <span class="comment">//breakpoint</span></span><br><span class="line">                        <span class="number">0x1f</span>,<span class="number">0xbc</span>, <span class="comment">//pop &#123;r0-r4&#125;</span></span><br><span class="line">                        <span class="number">0xf7</span>,<span class="number">0x46</span>&#125;;<span class="comment">//mov pc,lr</span></span><br><span class="line"><span class="type">char</span> *g_addr = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">my_sigtrap</span><span class="params">(<span class="type">int</span> sig)</span></span>&#123;</span><br><span class="line">    <span class="type">char</span> change_bkp[] = &#123;<span class="number">0x00</span>,<span class="number">0x46</span>&#125;; <span class="comment">//mov r0,r0</span></span><br><span class="line">    <span class="built_in">memcpy</span>(g_addr+<span class="number">2</span>,change_bkp,<span class="number">2</span>);</span><br><span class="line">    __clear_cache((<span class="type">void</span>*)g_addr,(<span class="type">void</span>*)(g_addr+<span class="number">8</span>)); <span class="comment">// need to clear cache</span></span><br><span class="line">    <span class="built_in">LOGI</span>(<span class="string">&quot;chang bpk to nop\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">anti4</span><span class="params">()</span></span>&#123;<span class="comment">//SIGTRAP</span></span><br><span class="line">    <span class="type">int</span> ret,size;</span><br><span class="line">    <span class="type">char</span> *addr,*tmpaddr;</span><br><span class="line">    <span class="built_in">signal</span>(SIGTRAP,my_sigtrap);</span><br><span class="line">    addr = (<span class="type">char</span>*)<span class="built_in">malloc</span>(PAGESIZE*<span class="number">2</span>);</span><br><span class="line">    <span class="built_in">memset</span>(addr,<span class="number">0</span>,PAGESIZE*<span class="number">2</span>);</span><br><span class="line">    g_addr = (<span class="type">char</span> *)(((<span class="type">int</span>) addr + PAGESIZE<span class="number">-1</span>) &amp; ~(PAGESIZE<span class="number">-1</span>));</span><br><span class="line">    <span class="built_in">LOGI</span>(<span class="string">&quot;addr: %p ,g_addr : %p\n&quot;</span>,addr,g_addr);</span><br><span class="line">    ret = <span class="built_in">mprotect</span>(g_addr,PAGESIZE,PROT_READ|PROT_WRITE|PROT_EXEC);</span><br><span class="line">    <span class="keyword">if</span>(ret!=<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">LOGI</span>(<span class="string">&quot;mprotect error\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">	&#125;</span><br><span class="line">    size = <span class="number">8</span>;</span><br><span class="line">    <span class="built_in">memcpy</span>(g_addr,dynamic_ccode,size);</span><br><span class="line">    __clear_cache((<span class="type">void</span>*)g_addr,(<span class="type">void</span>*)(g_addr+size)); <span class="comment">// need to clear cache</span></span><br><span class="line">    __asm__(<span class="string">&quot;push &#123;r0-r4,lr&#125;\n\t&quot;</span></span><br><span class="line">            <span class="string">&quot;mov r0,pc\n\t&quot;</span> <span class="comment">//此时pc指向后两条指令</span></span><br><span class="line">            <span class="string">&quot;add r0,r0,#4\n\t&quot;</span><span class="comment">//+4 是的lr 地址为 pop&#123;r0-r5&#125;</span></span><br><span class="line">            <span class="string">&quot;mov lr,r0\n\t&quot;</span></span><br><span class="line">            <span class="string">&quot;mov pc,%0\n\t&quot;</span></span><br><span class="line">            <span class="string">&quot;pop &#123;r0-r5&#125;\n\t&quot;</span></span><br><span class="line">            <span class="string">&quot;mov lr,r5\n\t&quot;</span> <span class="comment">//恢复lr</span></span><br><span class="line">    :</span><br><span class="line">    :<span class="string">&quot;r&quot;</span>(g_addr)</span><br><span class="line">    :);</span><br><span class="line">    <span class="built_in">LOGI</span>(<span class="string">&quot;hi, i&#x27;m here\n&quot;</span>);</span><br><span class="line">    <span class="built_in">free</span>(addr);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>9.利用IDA先截获信号特性的检测</strong></p>
+<p>IDA会首先截获信号，导致进程无法接收到信号，导致不会执行信号处理函数。将关键流程放在信号处理函数中，如果没有执行，就是被调试状态</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">myhandler</span><span class="params">(<span class="type">int</span> sig)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//signal(5, myhandler);</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;myhandler.\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> g_ret = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 设置SIGTRAP信号的处理函数为myhandler()</span></span><br><span class="line">    g_ret = (<span class="type">int</span>)<span class="built_in">signal</span>(SIGTRAP, myhandler);</span><br><span class="line">    <span class="keyword">if</span> ( (<span class="type">int</span>)SIG_ERR == g_ret )</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;signal ret value is SIG_ERR.\n&quot;</span>);</span><br><span class="line">    <span class="comment">// 打印signal的返回值(原处理函数地址)</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;signal ret value is %x\n&quot;</span>,(<span class="type">unsigned</span> <span class="type">char</span>*)g_ret);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 主动给自己进程发送SIGTRAP信号</span></span><br><span class="line">    <span class="built_in">raise</span>(SIGTRAP);</span><br><span class="line">    <span class="built_in">raise</span>(SIGTRAP);</span><br><span class="line">    <span class="built_in">raise</span>(SIGTRAP);</span><br><span class="line">    <span class="built_in">kill</span>(<span class="built_in">getpid</span>(), SIGTRAP);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;main.\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>10.五种代码执行时间检测</strong></p>
+<p>一段代码，在a处获取一下时间，运行一段后，再在b处获取下时间，然后通过(b时间­a时间)求时间差,正常情况下这个时间差会非常小，如果这个时间差比较大，说明正在被单步调试。</p>
+<p>做法：</p>
+<p>五个能获取时间的api：</p>
+<p>time()函数</p>
+<p>time_t结构体</p>
+<p>clock()函数</p>
+<p>clock_t结构体</p>
+<p>gettimeofday()函数</p>
+<p>timeval结构</p>
+<p>timezone结构</p>
+<p>clock_gettime()函数</p>
+<p>timespec结构</p>
+<p>getrusage()函数</p>
+<p>rusag</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/resource.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> _getrusage (); <span class="comment">//Invalid</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> _clock (); <span class="comment">//Invalid</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> _time ();</span><br><span class="line"><span class="type">static</span> <span class="type">int</span> _gettimeofday ();</span><br><span class="line"><span class="type">static</span> <span class="type">int</span> _clock_gettime ();</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span> <span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    _getrusage ();</span><br><span class="line">    _clock ();</span><br><span class="line">    _time ();</span><br><span class="line">    _gettimeofday ();</span><br><span class="line">    _clock_gettime ();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> _getrusage ()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">rusage</span> t1;</span><br><span class="line">    <span class="comment">/* breakpoint */</span></span><br><span class="line">    <span class="built_in">getrusage</span> (RUSAGE_SELF, &amp;t1);</span><br><span class="line">    <span class="type">long</span> used = t1.ru_utime.tv_sec + t1.ru_stime.tv_sec;</span><br><span class="line">    <span class="keyword">if</span> (used &gt; <span class="number">2</span>) &#123;</span><br><span class="line">    	<span class="built_in">puts</span> (<span class="string">&quot;debugged&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> _clock ()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">clock_t</span> t1, t2;</span><br><span class="line">    t1 = <span class="built_in">clock</span> ();</span><br><span class="line">    <span class="comment">/* breakpoint */</span></span><br><span class="line">    t2 = <span class="built_in">clock</span> ();</span><br><span class="line">    <span class="type">double</span> used = (<span class="type">double</span>)(t2 - t1) / CLOCKS_PER_SEC;</span><br><span class="line">    <span class="keyword">if</span> (used &gt; <span class="number">2</span>) &#123;</span><br><span class="line">    	<span class="built_in">puts</span> (<span class="string">&quot;debugged&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> _time ()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">time_t</span> t1, t2;</span><br><span class="line">    <span class="built_in">time</span> (&amp;t1);</span><br><span class="line">    <span class="comment">/* breakpoint */</span></span><br><span class="line">    <span class="built_in">time</span> (&amp;t2);</span><br><span class="line">    <span class="keyword">if</span> (t2 - t1 &gt; <span class="number">2</span>) &#123;</span><br><span class="line">    	<span class="built_in">puts</span> (<span class="string">&quot;debugged&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> _gettimeofday ()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">timeval</span> t1, t2;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">timezone</span> t;</span><br><span class="line">    <span class="built_in">gettimeofday</span> (&amp;t1, &amp;t);</span><br><span class="line">    <span class="comment">/* breakpoint */</span></span><br><span class="line">    <span class="built_in">gettimeofday</span> (&amp;t2, &amp;t);</span><br><span class="line">    <span class="keyword">if</span> (t2.tv_sec - t1.tv_sec &gt;<span class="number">2</span> ) &#123;</span><br><span class="line">    	<span class="built_in">puts</span> (<span class="string">&quot;debugged&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> _clock_gettime ()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">timespec</span> t1, t2;</span><br><span class="line">    <span class="built_in">clock_gettime</span> (CLOCK_REALTIME, &amp;t1);</span><br><span class="line">    <span class="comment">/* breakpoint */</span></span><br><span class="line">    <span class="built_in">clock_gettime</span> (CLOCK_REALTIME, &amp;t2);</span><br><span class="line">    <span class="keyword">if</span> (t2.tv_sec - t1.tv_sec &gt; <span class="number">2</span>) &#123;</span><br><span class="line">    	<span class="built_in">puts</span> (<span class="string">&quot;debugged&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>11.三种进程信息结构检测</strong></p>
+<p>一些进程文件中存储了进程信息，可以读取这些信息得知是否为调试状态。</p>
+<p>第一种：</p>
+<p>&#x2F;proc&#x2F;pid&#x2F;status</p>
+<p>&#x2F;proc&#x2F;pid&#x2F;task&#x2F;pid&#x2F;status</p>
+<p>TracerPid非0</p>
+<p>statue字段中写入t（tracing stop）</p>
+<p>第二种：</p>
+<p>&#x2F;proc&#x2F;pid&#x2F;stat</p>
+<p>&#x2F;proc&#x2F;pid&#x2F;task&#x2F;pid&#x2F;stat</p>
+<p>第二个字段是t（T）</p>
+<p>第三种：</p>
+<p>&#x2F;proc&#x2F;pid&#x2F;wchan</p>
+<p>&#x2F;proc&#x2F;pid&#x2F;task&#x2F;pid&#x2F;wchan</p>
+<p>ptrace_stop</p>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/alipay.png">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/weixin.png">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/04/11/%E5%AE%89%E5%8D%93%E9%98%B2%E6%8A%A4%E4%B8%8E%E7%BB%95%E8%BF%87/" target="_blank">安卓防护与绕过</a>
-  
-    </h1>
-  
+      </a>
+    </div>
+    
 
-
-        <div class="article-info info-on-right">
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          HGragon
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="http://example.com/2023/04/11/安卓防护与绕过/" title="安卓防护与绕过" target="_blank">http://example.com/2023/04/11/安卓防护与绕过/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
-          
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
 
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2023/04/11/%E5%AE%89%E5%8D%93%E9%98%B2%E6%8A%A4%E4%B8%8E%E7%BB%95%E8%BF%87/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/04/08/%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/" class="archive-article-date">
-        <time datetime="2023-04-08T07:50:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-08</time>
-</a>
 
+
+<nav id="article-nav">
+  
+    <a href="/2023/04/20/%E5%AE%89%E5%8D%93hook%E6%A1%86%E6%9E%B6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          安卓 hook
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/04/08/%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">安卓动态调试</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/04/08/%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/" target="_blank">安卓动态调试</a>
-  
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/04/08/NDK%E7%9B%B8%E5%85%B3/" class="archive-article-date">
-        <time datetime="2023-04-08T02:30:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-08</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/04/08/NDK%E7%9B%B8%E5%85%B3/" target="_blank">NDK相关</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/04/07/Android%E5%BC%80%E5%8F%91/" class="archive-article-date">
-        <time datetime="2023-04-07T14:17:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-07</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/04/07/Android%E5%BC%80%E5%8F%91/" target="_blank">Android开发</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/04/06/%E5%A4%96%E6%8C%82%E6%89%8B%E6%AE%B5%E4%B9%8B%E9%9D%99%E6%80%81%E7%AF%A1%E6%94%B9%E7%A0%B4%E8%A7%A3/" class="archive-article-date">
-        <time datetime="2023-04-06T11:18:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-06</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/04/06/%E5%A4%96%E6%8C%82%E6%89%8B%E6%AE%B5%E4%B9%8B%E9%9D%99%E6%80%81%E7%AF%A1%E6%94%B9%E7%A0%B4%E8%A7%A3/" target="_blank">外挂手段之静态破解</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/04/06/APK%E7%BB%93%E6%9E%84/" class="archive-article-date">
-        <time datetime="2023-04-06T10:22:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-06</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/04/06/APK%E7%BB%93%E6%9E%84/" target="_blank">APK文件从创建到运行</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/04/06/APK%E6%96%87%E4%BB%B6%E4%BB%8E%E5%88%9B%E5%BB%BA%E5%88%B0%E5%AE%89%E8%A3%85/" class="archive-article-date">
-        <time datetime="2023-04-06T10:22:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-06</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/04/06/APK%E6%96%87%E4%BB%B6%E4%BB%8E%E5%88%9B%E5%BB%BA%E5%88%B0%E5%AE%89%E8%A3%85/" target="_blank">APK文件从创建到安装</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -551,8 +694,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
