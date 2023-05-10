@@ -214,6 +214,404 @@
             
 
   
+    <article id="post-frida相关" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/05/08/frida%E7%9B%B8%E5%85%B3/" target="_blank">frida相关</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/05/08/frida%E7%9B%B8%E5%85%B3/" class="archive-article-date">
+        <time datetime="2023-05-08T11:46:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-05-08</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="1-注意事项"><a href="#1-注意事项" class="headerlink" title="1.注意事项"></a>1.注意事项</h1><ul>
+<li><p>所有针对Java层函数的Hook脚本必须处于Java.perform()的包装中</p>
+</li>
+<li><p>在使用Java.use() 获取执行类的handle之后，以类似于Java中调用类静态方法的方式获取对应的函数，如果函数存在<strong>多个重载</strong>，需要在函数名后添加**.overload(<signature>)**</p>
+</li>
+<li><p>附加模式插桩的指令</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frida -U -l 脚本路径 APP包名</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>setImmediate(funcname)</strong> 表示当Frida注入后立即执行，而**setTimeout(funcname,time)**可以指定时间</li>
+<li>使用value获取变量的值</li>
+<li>获取设备</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">device = frida.get_usb_device()</span><br><span class="line">device = frida.get_device_manager().add_remote_device(&#x27;IP:PORT&#x27;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>两种注入方式</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># spawn方式</span><br><span class="line">pid = device.spawn([&quot;包名&quot;])</span><br><span class="line">device.resume(pid)</span><br><span class="line">time.sleep(1)</span><br><span class="line">session = device.attach(pid)</span><br><span class="line"></span><br><span class="line"># attach方式</span><br><span class="line">session = device.attach(&quot;包名&quot;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>一些基础类型</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">javastring:</span><br><span class="line">var javaString = Java.use(&quot;java.lang.String&quot;)</span><br><span class="line">javaString.$new(&quot;123456&quot;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="2-被动示例-hook"><a href="#2-被动示例-hook" class="headerlink" title="2.被动示例(hook)"></a>2.被动示例(hook)</h1><p>java层</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">main</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="title class_">Java</span>.<span class="title function_">perform</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> <span class="title class_">MainActivity</span> = <span class="title class_">Java</span>.<span class="title function_">use</span>(<span class="string">&#x27;com.roysue.demo02.MainActivity&#x27;</span>)</span><br><span class="line">        <span class="title class_">MainActivity</span>.<span class="property">fun</span>.<span class="title function_">overload</span>(<span class="string">&#x27;int&#x27;</span>,<span class="string">&#x27;int&#x27;</span>).<span class="property">implementation</span> = <span class="keyword">function</span>(<span class="params">x,y</span>)&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;x=&gt;&quot;</span>,x,<span class="string">&quot;y=&gt;&quot;</span>,y)</span><br><span class="line">            <span class="keyword">var</span> ret_value = <span class="variable language_">this</span>.<span class="title function_">fun</span>(<span class="number">2</span>,<span class="number">5</span>);</span><br><span class="line">            <span class="keyword">return</span> ret_value</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">setImmediate</span>(main)</span><br></pre></td></tr></table></figure>
+
+<p>native层静态注册</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">hookmethod</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> stringFromJNI = <span class="title class_">Module</span>.<span class="title function_">findExportByName</span>(<span class="string">&#x27;libnative-lib.so&#x27;</span>,<span class="string">&#x27;Java_com...&#x27;</span>)</span><br><span class="line">    <span class="title class_">Interceptor</span>.<span class="title function_">attach</span>(stringFromJNI,&#123;</span><br><span class="line">        <span class="attr">onEnter</span>:<span class="keyword">function</span>(<span class="params">args</span>)&#123;</span><br><span class="line">            <span class="comment">//do something</span></span><br><span class="line">        &#125;,<span class="attr">onLeave</span>:<span class="keyword">function</span>(<span class="params">retval</span>)&#123;</span><br><span class="line">            <span class="comment">//do something</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>native层动态注册</p>
+<p>首先通过脚本获取对应java函数的native地址,脚本链接：<a target="_blank" rel="noopener" href="https://github.com/lasting-yang/frida_hook_libart">https://github.com/lasting-yang/frida_hook_libart</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frida -U --no-pause -f package_name -l hook_RegisterNatives.js</span><br></pre></td></tr></table></figure>
+
+<p>然后hook</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function hook_native_method(addr)&#123;</span><br><span class="line">    Interceptor.attach(addr,&#123;</span><br><span class="line">        onEnter:function(args)&#123;</span><br><span class="line">            Java.vm.getEnv().getStringUtfChars(args[2],null).readCString()</span><br><span class="line">        &#125;,onLeave:function(retval)&#123;</span><br><span class="line">            Java.vm.getEnv().getStringUtfChars(retval,null).readCString()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function hooknativemethod()&#123;</span><br><span class="line">    var base = Module.findBaseAddress(&#x27;lib.so&#x27;)</span><br><span class="line">    var method_addr = base.add(offset)</span><br><span class="line">    hook_native_method(method_addr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="3-主动调用示例"><a href="#3-主动调用示例" class="headerlink" title="3.主动调用示例"></a>3.主动调用示例</h1><p>主动调用java</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">main</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="title class_">Java</span>.<span class="title function_">perform</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> <span class="title class_">MainActivity</span> = <span class="title class_">Java</span>.<span class="title function_">use</span>(<span class="string">&#x27;com.roysue.demo02.MainActivity&#x27;</span>)</span><br><span class="line">        <span class="title class_">MainActivity</span>.<span class="title function_">staticSecret</span>()</span><br><span class="line"></span><br><span class="line">        <span class="title class_">Java</span>.<span class="title function_">choose</span>(<span class="string">&#x27;com.roysue.demo02.MainActivity&#x27;</span>,&#123;</span><br><span class="line">            <span class="attr">onMatch</span>:<span class="keyword">function</span>(<span class="params">instance</span>)&#123;</span><br><span class="line">                instance.<span class="title function_">secret</span>()</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">onComplete</span>:<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Complete&#x27;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">setImmediate</span>(main)</span><br></pre></td></tr></table></figure>
+
+<p>主动调用动态注册native</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">invoke_func</span>(<span class="params">addr,contents</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> result = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">var</span> func = <span class="keyword">new</span> <span class="title class_">NativeFunction</span>(addr,<span class="string">&#x27;pointer&#x27;</span>,[<span class="string">&#x27;pointer&#x27;</span>,<span class="string">&#x27;pointer&#x27;</span>,<span class="string">&#x27;pointer&#x27;</span>])</span><br><span class="line">    <span class="title class_">Java</span>.<span class="title function_">perform</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> env = <span class="title class_">Java</span>.<span class="property">vm</span>.<span class="title function_">getEnv</span>();</span><br><span class="line">        <span class="keyword">var</span> jstring = env.<span class="title function_">newStringUtf</span>(contents)</span><br><span class="line">        result = <span class="title function_">func</span>(env,<span class="title function_">ptr</span>(<span class="number">1</span>),jstring)</span><br><span class="line">        result = env.<span class="title function_">getStringUtfChars</span>(result,<span class="literal">null</span>).<span class="title function_">readCString</span>()</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">invoke_method</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> base = <span class="title class_">Module</span>.<span class="title function_">findBaseAddress</span>(<span class="string">&#x27;lib.so&#x27;</span>)</span><br><span class="line">    <span class="keyword">var</span> method_addr = base.<span class="title function_">add</span>(offset)</span><br><span class="line">    <span class="title function_">hook_native_method</span>(method_addr,<span class="string">&quot;r0ysue&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>脱离特定APK加载对应模块并调用native函数的方式</p>
+<p>（1）解压so库并放入&#x2F;data&#x2F;app目录下，以root用户赋予相应权限</p>
+<p>（2）主动加载模块并调用函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">invoke_function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> base = <span class="title class_">Module</span>.<span class="title function_">load</span>(<span class="string">&#x27;lib.so&#x27;</span>),base</span><br><span class="line">    <span class="keyword">var</span> method_addr = base.<span class="title function_">add</span>(offset)</span><br><span class="line">    <span class="keyword">var</span> result = <span class="title function_">invoke_func</span>(method_addr,<span class="string">&quot;r0ysue&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="4-RPC自动化调用"><a href="#4-RPC自动化调用" class="headerlink" title="4.RPC自动化调用"></a>4.RPC自动化调用</h1><p>1.导出函数(导出名不可以有大写字母或者下划线)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rpc.exports = &#123;</span><br><span class="line">	callsecretfunc ： CallSecretFunc,</span><br><span class="line">	gettotalvalue: getTotalValue</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.python调用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> frida,sys</span><br><span class="line"></span><br><span class="line">packagename = <span class="string">&quot;com.roysue.demo02&quot;</span></span><br><span class="line">js_path = <span class="string">&quot;1.js&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">on_message</span>(<span class="params">message,data</span>):</span><br><span class="line">    <span class="keyword">if</span> message[<span class="string">&#x27;type&#x27;</span>] == <span class="string">&quot;send&quot;</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;[*] &#123;0&#125;&quot;</span>.<span class="built_in">format</span>(message[<span class="string">&#x27;payload&#x27;</span>]))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(message)</span><br><span class="line">device = frida.get_usb_device()</span><br><span class="line">process = device.attach(packagename)</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(js_path) <span class="keyword">as</span> f:</span><br><span class="line">    jscode = f.read()</span><br><span class="line">script = process.create_script(jscode)</span><br><span class="line"></span><br><span class="line">script.on(<span class="string">&#x27;message&#x27;</span>,on_message)</span><br><span class="line">script.load()</span><br><span class="line"></span><br><span class="line">command = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    command = <span class="built_in">input</span>(<span class="string">&quot;Enter command&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> command == <span class="string">&quot;1&quot;</span>:</span><br><span class="line">        script.exports.callsecretfunc()</span><br><span class="line">    <span class="keyword">elif</span> command == <span class="string">&quot;2&quot;</span>:</span><br><span class="line">        script.exports.gettotalvalue()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="5-Frida工具Objection"><a href="#5-Frida工具Objection" class="headerlink" title="5.Frida工具Objection"></a>5.Frida工具Objection</h1><p><strong>0.运行</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objection -g 包名 explore</span><br></pre></td></tr></table></figure>
+
+<p><strong>1.内存枚举</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">android hooking list classes  //枚举当前内存加载的类</span><br><span class="line">android hooking search classes &lt;pattern&gt; //枚举对应字符串名称的类</span><br><span class="line">android hooking list class_methods 包含包名的完整类名  //获取指定类中所有非构造函数的方法签名</span><br><span class="line">android hooking list activities/services/receivers/providers //列出</span><br><span class="line">android intent launch_activity activity路径</span><br><span class="line"></span><br><span class="line">memory list modules                                      // 查看内存中加载的库</span><br><span class="line">memory list exports libssl.so                            // 查看库的导出函数</span><br><span class="line">memory list exports libart.so --json /root/libart.json //将结果保存到json文件中</span><br><span class="line">memory search --string --offsets-only                    //搜索内存</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.Hook指令</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">android hooking watch class &lt;class_name&gt; //hook某类全部非构造函数</span><br><span class="line">android hooking watch class_method &lt;classMethod&gt; &lt;overload&gt; &lt;option&gt;  //hook指定函数</span><br><span class="line">option(可以组合使用):</span><br><span class="line">--dump-args:打印参数内容</span><br><span class="line">--dump-return:打印函数返回值</span><br><span class="line">--dump-backtrace:打印函数调用栈</span><br><span class="line">overload:如&quot;[I&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.主动调用</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">android heap search instance &lt;class_name&gt;  //搜索类实例</span><br><span class="line">android heap execute &lt;Handle&gt; &lt;methodname&gt; /调用没有参数的示例方法</span><br><span class="line">android heap evaluate &lt;Handle&gt; //进入编写脚本:</span><br><span class="line">	clazz.setWriteable(false) 设定clazz为类实例</span><br></pre></td></tr></table></figure>
+
+<p><strong>4.基于Trace枚举的关键类定位方式</strong></p>
+<p>类似DDMS中自带的Trace</p>
+<p>原理：objection支持通过-c参数对指定文件中的所有命令进行执行的功能</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objection -g com.a.easyjava explore -P ~/.objection/Plugins</span><br></pre></td></tr></table></figure>
+
+<p>（1）搜索包含包名的类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android hooking search classes 包名</span><br></pre></td></tr></table></figure>
+
+<p>（2）将搜索的类保存为文件，并在每一行行首加上android hooking watch class字符串</p>
+<p>（3）使用objection完成对所有包含包名所有类的hook工作</p>
+<p>（4）触发关心的业务逻辑</p>
+<p><strong>5.基于内存枚举的关键类定位方式</strong></p>
+<p>基于objection的插件wallbreaker，用于快速定位一个类中所包含的属性与函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Search</span><br><span class="line">plugin wallbreaker classsearch &lt;type-pattern&gt;</span><br><span class="line">plugin wallbreaker objectsearch &lt;instance-class-name&gt;</span><br><span class="line">Dump</span><br><span class="line">plugin wallbreaker classdump &lt;class-name&gt; [--fullname]</span><br><span class="line">plugin wallbreaker objectdump &lt;object-handle&gt; [--fullname] [--as-class class-name]</span><br></pre></td></tr></table></figure>
+
+<h1 id="6-Frida工具ZenTracer"><a href="#6-Frida工具ZenTracer" class="headerlink" title="6.Frida工具ZenTracer"></a>6.Frida工具ZenTracer</h1><p>基于Frida的tracer工具</p>
+<p>（1）使用Action菜单，选择Match RegEx（Hook指定的与输入正则匹配的类，在输入想要hook的类前加上M:）,或Black RegEx（不Hook指定的类,B:)</p>
+<p><img src="D:\blog\source\images\image-20230509204759528.png" alt="image-20230509204759528"></p>
+<p>(2)启动app，单击start即可完成hook工作</p>
+<h1 id="7-基于Frida的脱壳工具"><a href="#7-基于Frida的脱壳工具" class="headerlink" title="7.基于Frida的脱壳工具"></a>7.基于Frida的脱壳工具</h1><h2 id="7-1-DEXDump-第一代壳"><a href="#7-1-DEXDump-第一代壳" class="headerlink" title="7.1 DEXDump(第一代壳)"></a>7.1 DEXDump(第一代壳)</h2><p>原理</p>
+<p>在目标进程的内存空间遍历搜索包含DEX文件特征（dex03）的数据，并在匹配到特征的DEX数据后完成真实DEX文件的dump工作，主要利用Frida的Memory.scanSync()函数</p>
+<p>安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install frida-dexdump</span><br></pre></td></tr></table></figure>
+
+<p>使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frida-dexdump -U -f com.app.pkgname</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-2-Frida-art（第二代壳）"><a href="#7-2-Frida-art（第二代壳）" class="headerlink" title="7.2.Frida_art（第二代壳）"></a>7.2.Frida_art（第二代壳）</h2><p>项目地址</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hanbinglengyue/FART/tree/master">hanbinglengyue&#x2F;FART: ART环境下自动化脱壳方案 (github.com)</a></p>
+<p>原理</p>
+<p>HOOO ART虚拟机加载DEX的native函数</p>
+<p>脱壳流程：</p>
+<p>1、安装待脱壳apk，并到设置中授予sd卡读写权限(否则dump下的文件无法写入到sdcard)</p>
+<p>2、点击app图标，开始进入fart脱壳过程</p>
+<p>接下来可以对logcat中的tag为ActivityThread的log进行过滤，等待待脱壳app进程出现”fart run over”，此时fart主动调用过程结束。脱壳下来的</p>
+<p>dex文件和函数体bin文件均在&#x2F;sdcard&#x2F;fart&#x2F;app包名的目录下</p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/05/08/frida%E7%9B%B8%E5%85%B3/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-APK加固" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/05/04/APK%E5%8A%A0%E5%9B%BA/" target="_blank">APK加固</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/05/04/APK%E5%8A%A0%E5%9B%BA/" class="archive-article-date">
+        <time datetime="2023-05-04T13:58:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-05-04</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="1-常见加固厂商"><a href="#1-常见加固厂商" class="headerlink" title="1. 常见加固厂商"></a>1. 常见加固厂商</h1><p>360、梆梆、爱加密、百度、腾讯、阿里</p>
+<h1 id="2-常见加固方式"><a href="#2-常见加固方式" class="headerlink" title="2.常见加固方式"></a>2.常见加固方式</h1><p><strong>1.类加载技术</strong></p>
+<p>（1）针对APK中的classes.dex文件进行处理,放入特定的文件中，通过native代码来对其运行时解密（使用厂商：娜迦&#x2F;爱加密&#x2F;梆梆</p>
+<p>（2）对原dex文件整体压缩加密，保存在壳代理的dex文件尾部，加载到内存中解密运行（使用厂商：360）</p>
+<p><strong>2.方法替换技术</strong></p>
+<p>将class.dex文件中的方法代码进行提取，抽取方法，在运行时对其进行动态解密还原（使用厂商:娜迦&#x2F;梆梆）</p>
+<h1 id="3-加固厂商特征"><a href="#3-加固厂商特征" class="headerlink" title="3.加固厂商特征"></a>3.加固厂商特征</h1><p>​	娜迦：libchaosvmp.so, libddog.so libfdog.so</p>
+<p>​	梆梆：libsecexe.so, libsecmain.so, libSecShell.so</p>
+<p>​	梆梆企业版：libDexHelper.so, libDexHelper-x86.so</p>
+<p>​	爱加密：libexec.so, libexecmain.so, ijiami.dat</p>
+<p>​	360：libprotectClass.so, libjiagu.so; libjiagu.so, libjiagu_art.so; 		libjiagu.so, libjiagu_x86.so</p>
+<p>​	百度：libbaiduprotect.so</p>
+<p>​	阿里聚安全：aliprotect.dat, libsgmain.so, libsgsecuritybody.so	</p>
+<p>​	腾讯：libtup.so, libexec.so, libshell.so; mix.dex; 				lib&#x2F;armeabi&#x2F;mix.dex, lib&#x2F;armeabi&#x2F;mixz.dex	</p>
+<p>​	腾讯御安全：libtosprotection.armeabi.so, 					libtosprotection.armeabi-v7a.so, libtosprotection.x86.so</p>
+<p>​	通付盾：libegis.so, libNSaferOnly.so</p>
+<p>​	网秦：libnqshield.so</p>
+<p>​	网易易盾：libnesec.so</p>
+<p>​	APKProtect：libAPKProtect.so</p>
+<p>​	几维安全：libkwscmm.so, libkwscr.so, libkwslinker.so</p>
+<p>​	顶像科技：libx3g.so</p>
+<h1 id="4-APP加固技术发展历程"><a href="#4-APP加固技术发展历程" class="headerlink" title="4.APP加固技术发展历程"></a>4.APP加固技术发展历程</h1><p><strong>1.第一代加固DEX加密</strong></p>
+<p>（1）原理</p>
+<p>proguard等混淆、其他弱加密、对抗反编译（添加垃圾类）、DEX字符串加密、静态DEX文件整体加密解密、自定义DexClassLoader</p>
+<p>落地式加载和非落地式加载：</p>
+<p><img src="D:\blog\source\images\image-20230505170218384.png" alt="image-20230505170218384"></p>
+<p>（2）脱壳时机与手法</p>
+<p>内存Dump法：内存中寻找dex.035或者dex.036，&#x2F;proc&#x2F;$pid&#x2F;maps中查找后，手动dump</p>
+<p>Hook法：针对无代码抽取且Hook dvmDexFileOpenPartial失败，HookdexFileParse；针对无代码抽取且Hook dexFileParse失败，Hook memcmp</p>
+<p>(将dex数据转换为DvmDex结构体)dvmDexFileOpenPartial-&gt;dexFileParse-&gt;memcmp</p>
+<p>定制系统：修改安卓源码并刷机</p>
+<p><strong>2.第二代加固DEX抽取与so加固</strong></p>
+<p>（1）原理</p>
+<p>DEX动态加载（分为利用jni和自定义jni即自定义底层函数）</p>
+<p>DEX代码抽取到外部（类抽取加密按需解密和动态方法修改替换）</p>
+<p>SO加密</p>
+<p>（2）脱壳时机与手法</p>
+<p>内存重组法：Dex ZjDroid：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/feicheninfo/articles/7124326.html">ZjDroid工具介绍及脱壳详细示例 - AndroSec - 飞晨信息 - 博客园 (cnblogs.com)</a></p>
+<p>定制系统：修改安卓源码并刷机，DexHunter</p>
+<p>静态脱壳机：分析so壳逻辑并还原加密算法，自定义linker脱so壳</p>
+<p><strong>3.第三代加固</strong></p>
+<p>（1）原理</p>
+<p>DEX动态解密及代码动态解密</p>
+<p>SO混淆及代码膨胀混淆</p>
+<p>（2）脱壳时机与手法</p>
+<p>dex2oat：ART模式下，dex2oat生成oat文件时，内存中的DEX是完整的</p>
+<p>定制系统</p>
+<p><strong>4.第四代加固</strong></p>
+<p>第四代加固 arm vmp</p>
+<p>jni反射抽取方法成本地原生代码即半vmp（分为jni反射解密DEX方	法和完全翻译为C代码）</p>
+<p>初级vm即dex opcode vm指令虚拟使用jni指令还原（分为自定义后	端编译器和jni反射置换表）</p>
+<p>高级vm即解释框架dex opcode不存在还原使用解释引擎的vm文件</p>
+<h1 id="5-APP具体加固技术"><a href="#5-APP具体加固技术" class="headerlink" title="5.APP具体加固技术"></a>5.APP具体加固技术</h1><h2 id="5-1-DEX隐藏方法、字段、指令集"><a href="#5-1-DEX隐藏方法、字段、指令集" class="headerlink" title="5.1 DEX隐藏方法、字段、指令集"></a>5.1 DEX隐藏方法、字段、指令集</h2><p>效果：利用反汇编工具（Jdax等）识别不了方法字段等</p>
+<p>修改uint_class_data_off(类偏移)为0，类的方法和字段都会被隐藏等</p>
+<h2 id="5-2-字符串加密OLLVM混淆"><a href="#5-2-字符串加密OLLVM混淆" class="headerlink" title="5.2 字符串加密OLLVM混淆"></a>5.2 字符串加密OLLVM混淆</h2><p>效果：对so文件中字符串进行混淆或加密，使静态分析的时候看不见字符串</p>
+<p>(1) 调试so库</p>
+<p>(2) 或者直接附加的形式，在其解密后dump对应so库，（加密数据一般在.data段中)</p>
+<p>并把解密后的数据通过010Editor复制到原有so库中，再进行静态分析</p>
+<h2 id="5-3-SO库UPX壳"><a href="#5-3-SO库UPX壳" class="headerlink" title="5.3. SO库UPX壳"></a>5.3. SO库UPX壳</h2><p>[<a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-221997.htm">原创]———手脱定制版的android SO UPX壳-Android安全-看雪论坛-安全社区|安全招聘|bbs.pediy.com (kanxue.com)</a></p>
+<h2 id="5-4-SO结构破坏IDA对抗"><a href="#5-4-SO结构破坏IDA对抗" class="headerlink" title="5.4.SO结构破坏IDA对抗"></a>5.4.SO结构破坏IDA对抗</h2><p>ELF文件可以按照section节来解析，也可以按照program段来解析</p>
+<p>而IDA一般使用section节来解析，有些厂商会将section节一些信息置0，导致IDA解析出现问题</p>
+<p>此时仅需要将ELF头部与节区相关的信息置0</p>
+<p>即e_shoff,e_shentsize,e_shnum</p>
+<h2 id="5-5-隐藏JNI-Onload"><a href="#5-5-隐藏JNI-Onload" class="headerlink" title="5.5.隐藏JNI_Onload"></a>5.5.隐藏JNI_Onload</h2><p>有些so库找不到JNI_ONload，此时需要在对应的libdvm.so或libart.so找到calling JNI_Onload字符串引用对应的代码处，来定位JNI_Onload</p>
+<h2 id="5-6-init或init-array处理"><a href="#5-6-init或init-array处理" class="headerlink" title="5.6.init或init_array处理"></a>5.6.init或init_array处理</h2><p>一些so库会使用upx等压缩加密，此时需要在linker中下段，查看init和init_array的初始化逻辑</p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/05/04/APK%E5%8A%A0%E5%9B%BA/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Android框架" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/04/27/Android%E6%A1%86%E6%9E%B6/" target="_blank">Android框架</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/04/27/Android%E6%A1%86%E6%9E%B6/" class="archive-article-date">
+        <time datetime="2023-04-27T09:33:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-27</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/04/27/Android%E6%A1%86%E6%9E%B6/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-常用加密算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1184,192 +1582,10 @@
 
 
   
-    <article id="post-APK结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
   
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/04/06/APK%E7%BB%93%E6%9E%84/" target="_blank">APK文件从创建到运行</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/04/06/APK%E7%BB%93%E6%9E%84/" class="archive-article-date">
-        <time datetime="2023-04-06T10:22:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-06</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p><strong>1.APK文件结构</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- assets:静态资源文件</span><br><span class="line">- lib:当前程序使用的so文件(即动态链接库)</span><br><span class="line">- META-INF:证书签名文件(程序摘要,保证程序的完整性)</span><br><span class="line">--- MANIFEST.MF:哈希值</span><br><span class="line">--- ROVIOKEY.RSA:签名秘钥</span><br><span class="line">--- ROVIOKEY.SF:哈希值</span><br><span class="line">- res:程序资源文件(每个资源对应唯一ID,用于和代码交互)</span><br><span class="line">- AndroidManifest.xml:程序的全局配置文件</span><br><span class="line">- classes(n).dex:汇编代码,可通过反编译工具dex2jar转换成jar包,再通过jd-gui查看其代码</span><br><span class="line">- resources.arsc:资源索引表,用来描述具有ID值的资源的配置信息</span><br></pre></td></tr></table></figure>
-
-<p><strong>2.APK的打包流程</strong></p>
-<p><img src="/../images/apkdabao.png"></p>
-<p>(1) <strong>res</strong>资源 —&gt; <strong>R.java</strong>(资源ID）+<strong>Compiled resources</strong></p>
-<p>(2) <strong>R.java</strong> + <strong>app源码</strong> + <strong>java接口</strong>(跨进程通讯) 通过编译器 -&gt; <strong>.class文件</strong></p>
-<p>(3) <strong>.class文件</strong> + <strong>第三方库</strong> 通过动态链接 -&gt; <strong>dex文件</strong></p>
-<p>(4) <strong>compiled resources</strong> + <strong>静态资源</strong> + <strong>dex 文件</strong> 通过apkbuilder -&gt; <strong>.apk</strong></p>
-<p>(5) 对apk通过签名校验 -&gt; 签名后的<strong>signed.apk</strong></p>
-<p>(6) <strong>压缩对齐</strong>后 -&gt; 可执行可安装的apk</p>
-<p><strong>3.APK的安装流程</strong></p>
-<p>(1) 把APK文件复制到**&#x2F;data&#x2F;app<strong>中,并以包名命名,解压扫描安装包,并在</strong>&#x2F;data&#x2F;data**存放相关数据</p>
-<p>(2) 对dex进行优化操作，保存dex到**&#x2F;data&#x2F;dalvik-cache&#x2F;profiles&#x2F;**</p>
-<p>(3) 解析AndroidManifest.xml文件，得到四大组件</p>
-<p><strong>4.APK的运行流程</strong></p>
-<p>依靠虚拟机</p>
-<p>Android 5.0以下Dalvik虚拟机 .dex&#x3D;&gt;dexopt&#x3D;&gt;.odex</p>
-<p>Android 5.0以上ART虚拟机     .dex&#x3D;&gt;dex2oat&#x3D;&gt;.oat</p>
-<p><img src="/../images/jvm.png"></p>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/04/06/APK%E7%BB%93%E6%9E%84/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-APK文件从创建到安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/04/06/APK%E6%96%87%E4%BB%B6%E4%BB%8E%E5%88%9B%E5%BB%BA%E5%88%B0%E5%AE%89%E8%A3%85/" target="_blank">APK文件从创建到安装</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/04/06/APK%E6%96%87%E4%BB%B6%E4%BB%8E%E5%88%9B%E5%BB%BA%E5%88%B0%E5%AE%89%E8%A3%85/" class="archive-article-date">
-        <time datetime="2023-04-06T10:22:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-06</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p><strong>1.APK文件结构</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- assets:静态资源文件</span><br><span class="line">- lib:当前程序使用的so文件(即动态链接库)</span><br><span class="line">- META-INF:证书签名文件(程序摘要,保证程序的完整性)</span><br><span class="line">--- MANIFEST.MF:哈希值</span><br><span class="line">--- ROVIOKEY.RSA:签名秘钥</span><br><span class="line">--- ROVIOKEY.SF:哈希值</span><br><span class="line">- res:程序资源文件(每个资源对应唯一ID,用于和代码交互)</span><br><span class="line">- AndroidManifest.xml:程序的全局配置文件</span><br><span class="line">- classes(n).dex:汇编代码,可通过反编译工具dex2jar转换成jar包,再通过jd-gui查看其代码</span><br><span class="line">- resources.arsc:资源索引表,用来描述具有ID值的资源的配置信息</span><br></pre></td></tr></table></figure>
-
-<p><strong>2.APK的打包流程</strong></p>
-<p><img src="/../images/apkdabao.png"></p>
-<p>(1) <strong>res</strong>资源 —&gt; <strong>R.java</strong>(资源ID）+<strong>Compiled resources</strong></p>
-<p>(2) <strong>R.java</strong> + <strong>app源码</strong> + <strong>java接口</strong>(跨进程通讯) 通过编译器 -&gt; <strong>.class文件</strong></p>
-<p>(3) <strong>.class文件</strong> + <strong>第三方库</strong> 通过动态链接 -&gt; <strong>dex文件</strong></p>
-<p>(4) <strong>compiled resources</strong> + <strong>静态资源</strong> + <strong>dex 文件</strong> 通过apkbuilder -&gt; <strong>.apk</strong></p>
-<p>(5) 对apk通过签名校验 -&gt; 签名后的<strong>signed.apk</strong></p>
-<p>(6) <strong>压缩对齐</strong>后 -&gt; 可执行可安装的apk</p>
-<p><strong>3.APK的安装流程</strong></p>
-<p>(1) 把APK文件复制到**&#x2F;data&#x2F;app<strong>中,并以包名命名,解压扫描安装包,并在</strong>&#x2F;data&#x2F;data**存放相关数据（例如so库）</p>
-<p>(2) 对dex进行优化操作，保存dex到**&#x2F;data&#x2F;dalvik-cache&#x2F;profiles&#x2F;**</p>
-<p>(3) 解析AndroidManifest.xml文件，得到四大组件</p>
-<p><strong>4.APK的运行流程</strong></p>
-<p>依靠虚拟机</p>
-<p><img src="/../images/jvm.jpg"></p>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/04/06/APK%E6%96%87%E4%BB%B6%E4%BB%8E%E5%88%9B%E5%BB%BA%E5%88%B0%E5%AE%89%E8%A3%85/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    </nav>
   
 
 
